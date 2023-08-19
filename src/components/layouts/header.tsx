@@ -2,7 +2,7 @@ import HeaderTopPromo from '@/components/layouts/header-top-promo'
 import Link from "next/link"
 import Image from 'next/image'
 
-import { ChevronRight, ShoppingBasket, Search } from 'lucide-react'
+import { ChevronRight, ShoppingBasket } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import NextImage from '@/components/next-image'
 import Cart from '@/components/cart'
+import SearchInput from '../search'
 
 export default function Header() {
   return (
@@ -30,8 +31,7 @@ export default function Header() {
               </Link>
 
               <div className='flex items-center'>
-                <Search />
-                <input className='ml-4 w-[280px] focus:outline-none capitalize' placeholder='Type any sneaker here, eg. Air Jordan'></input>
+                <SearchInput></SearchInput>
               </div>
             </div>
 

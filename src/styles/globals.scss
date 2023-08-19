@@ -59,3 +59,24 @@ body {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: transparent;
+  mix-blend-mode: difference;
+}
+ 
+::-webkit-scrollbar-track {
+  // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: #ababab;
+  border-radius: 100px;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
