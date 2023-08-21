@@ -6,6 +6,8 @@ import 'swiper/css';
 
 import Link from 'next/link';
 import LayoutMain from '@/components/layouts';
+import ProductCard from '@/components/product-list/product-card';
+import BrandList from '@/components/brands';
 
 export default function Home() {
   return (
@@ -16,25 +18,7 @@ export default function Home() {
         <div className="my-20">
           <div className="container-fluid">
             <h2 className='text-3xl font-bold mb-7'>Explore Brands</h2>
-
-            <Swiper
-              spaceBetween={5}
-              grabCursor={true}
-              slidesPerView={8.5}
-            >
-              {[...Array(20)].map(item => {
-                return (
-                  <SwiperSlide key={item}>
-                    <Link key={item} href={'/brand/nike'}>
-                      <div className="bg-slate-100 px-3 w-full py-3 flex items-center justify-center flex-col rounded-md border border-transparent hover:shadow-sm hover:border-slate-300">
-                        <NextImage src={'/images/nike.png'} height={50} width={50} alt='nike'></NextImage>
-                        <p>Nike</p>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                )
-              })}
-            </Swiper>
+            <BrandList></BrandList>
           </div>
         </div>
 
@@ -44,15 +28,8 @@ export default function Home() {
             <div className="grid grid-cols-12 md:gap-[15px] lg:gap[30px]">
               {[...Array(6)].map(item => {
                 return (
-                  <div key={item}  className="col-span-10 md:col-span-4 lg:col-span-2">
-                    <Link href={'/product/nike'}>
-                      <NextImage src={'/images/product.png'} height={500} width={500} alt='product-item' className='w-full rounded-md'></NextImage>
-                      <div className="mt-3">
-                        <p className='text-xs'>Men, Running</p>
-                        <p className='font-bold'>New Balance 550 Men Sneakers</p>
-                        <p>$200</p>
-                      </div>
-                    </Link>
+                  <div key={item} className="col-span-10 md:col-span-4 lg:col-span-2">
+                    <ProductCard></ProductCard>
                   </div>
                 )
               })}
