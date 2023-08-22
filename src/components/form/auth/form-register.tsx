@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function FormRegister() {
   return (
@@ -25,7 +26,7 @@ export default function FormRegister() {
         <Input type="password" id="confirm-password" placeholder="Re-enter your password" />
       </div>
 
-      <Button>Register</Button>
+      <Button><Link href={'/profile'}>Register</Link></Button>
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">

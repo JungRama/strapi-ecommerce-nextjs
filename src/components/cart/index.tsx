@@ -10,6 +10,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import CartItem from "./cart-item"
+import Link from "next/link"
 
 export interface propsInterface {
   trigger: JSX.Element
@@ -42,7 +43,11 @@ export default function Cart(props: propsInterface) {
             <p>$262.00</p>
           </div>
           <div className="mt-6">
-            <Button size={'lg'} className="w-full">Checkout</Button>
+            <Button size={'lg'} asChild className="w-full">
+              <Link href={'checkout'}>
+                Checkout
+              </Link>
+            </Button>
           </div>
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <p>

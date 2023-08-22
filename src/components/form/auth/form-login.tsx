@@ -20,7 +20,7 @@ export default function FormLogin() {
         <Link href={'/forgot-password'}>Forgot Password? Click Here</Link>
       </div>
 
-      <Button>Login</Button>
+      <Button asChild><Link href={'/profile'}>Login</Link></Button>
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
