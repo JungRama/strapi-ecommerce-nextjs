@@ -9,10 +9,10 @@ import FormRegister from "@/components/form/auth/form-register"
 export default function RegisterPage() {
   return (
     <div className="flex">
-      <div className="container relative hidden min-h-[100vh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative my-20 md:my-0  min-h-[100vh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
           href="/login"
-          className={"absolute right-4 top-4 md:right-8 md:top-8"}
+          className={"fixed right-4 top-4 md:right-8 md:top-8"}
         >
           Login
         </Link>

@@ -7,7 +7,7 @@ export default function SearchInput() {
       <SearchModal trigger={
         <div className='flex relative cursor-pointer'>
           <Search />
-          <input readOnly className='ml-4 w-[250px] cursor-pointer focus:outline-none' placeholder='Search any sneakers here ...'></input>
+          <input readOnly className='ml-4 hidden lg:block lg:w-[145px] xl:w-[250px] cursor-pointer focus:outline-none' placeholder='Search any sneakers here ...'></input>
         </div>
       }></SearchModal>
     </>

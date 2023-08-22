@@ -25,10 +25,10 @@ export default function ProductCollectionFilter() {
 
   return (
     <>
-      <div className="flex items-center">
+      <div className="flex items-center w-full md:w-auto">
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="outline">
+            <Button variant="outline" className="w-full md:w-auto">
               {collectionSelect ? collectionSelect : 'Select Collection'}
               <ChevronsUpDown className="h-3 ml-4" />
             </Button>

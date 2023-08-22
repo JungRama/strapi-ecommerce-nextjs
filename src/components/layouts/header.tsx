@@ -2,7 +2,7 @@ import HeaderTopPromo from '@/components/layouts/header-top-promo'
 import Link from "next/link"
 import Image from 'next/image'
 
-import { ChevronRight, ShoppingBasket } from 'lucide-react'
+import { ChevronRight, Menu, ShoppingBasket, User2 } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -16,6 +16,7 @@ import {
 import NextImage from '@/components/next-image'
 import Cart from '@/components/cart'
 import SearchInput from '../search'
+import MenuSideBarMobile from './menu-sidebar-mobile'
 
 export default function Header() {
   return (
@@ -30,13 +31,13 @@ export default function Header() {
                 <p className='text-2xl font-bold mr-10'>SNEAKPEAKS</p>
               </Link>
 
-              <div className='flex items-center'>
+              <div className='flex items-center hidden md:block'>
                 <SearchInput></SearchInput>
               </div>
             </div>
 
             <div className="flex items-center">
-              <NavigationMenu className='mr-4'>
+              <NavigationMenu className='mr-4 hidden md:block'>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>Explore Sneakers</NavigationMenuTrigger>
@@ -120,9 +121,22 @@ export default function Header() {
                 }></Cart>
               </div>
 
+              <div className='block md:hidden relative'>
+                <MenuSideBarMobile trigger={
+                  <Button variant={'ghost'}>
+                    <Menu></Menu>
+                  </Button>
+                }></MenuSideBarMobile>
+              </div>
 
-              <Button size={'sm'} asChild>
-                <Link href="/login">Login or Register</Link>
+
+              <Button size={'sm'} asChild className='hidden md:flex'>
+                <Link href="/login">
+                  <span className='md:visible lg:hidden'>
+                    <User2></User2>
+                  </span>
+                  <span className='hidden lg:block'>Login or Register</span>
+                </Link>
               </Button>
             </div>
           </div>

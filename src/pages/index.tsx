@@ -25,10 +25,10 @@ export default function Home() {
         <div className="my-20">
           <div className="container-fluid">
             <h2 className='text-3xl font-bold mb-7'>Featured Sneakers</h2>
-            <div className="grid grid-cols-12 md:gap-[15px] lg:gap[30px]">
+            <div className="grid grid-cols-12 gap-[15px] lg:gap-[30px]">
               {[...Array(6)].map(item => {
                 return (
-                  <div key={item} className="col-span-10 md:col-span-4 lg:col-span-2">
+                  <div key={item} className="col-span-6 md:col-span-4 lg:col-span-2">
                     <ProductCard></ProductCard>
                   </div>
                 )
@@ -44,7 +44,17 @@ export default function Home() {
             <Swiper
               spaceBetween={15}
               grabCursor={true}
-              slidesPerView={3.5}
+              slidesPerView={1.5}
+              breakpoints={
+                {
+                  '620': {
+                    slidesPerView: 2.5
+                  },
+                  '1024': {
+                    slidesPerView: 3.5
+                  }
+                }
+              }
             >
               {[...Array(20)].map(item => {
                 return (

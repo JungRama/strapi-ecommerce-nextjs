@@ -9,7 +9,17 @@ export default function BrandList () {
     <Swiper
       spaceBetween={5}
       grabCursor={true}
-      slidesPerView={8.5}
+      slidesPerView={2.5}
+      breakpoints={
+        {
+          '620': {
+            slidesPerView: 4.5
+          },
+          '1024': {
+            slidesPerView: 8.5
+          }
+        }
+      }
     >
       {[...Array(20)].map(item => {
         return (

@@ -14,20 +14,18 @@ export default function ProductList() {
           <BrandList></BrandList>
         </div>
 
-        <div className="mb-10 flex items-center justify-between">
-          <div className="flex">
-            <div className="mr-2">
-              <ProductFilter></ProductFilter>
-            </div>
+        <div className="mb-10 flex flex-col md:flex-row items-start md:items-center gap-2 justify-between">
+          <div className="flex flex-col md:flex-row gap-2 w-full">
+            <ProductFilter></ProductFilter>
             <ProductCollectionFilter></ProductCollectionFilter>
           </div>
           <ProductSort></ProductSort>
         </div>
 
-        <div className="grid grid-cols-12 mb-20 md:gap-[15px] lg:gap[30px]">
+        <div className="grid grid-cols-12 mb-20 gap-[15px] lg:gap-[30px]">
           {[...Array(24)].map(item => {
             return (
-              <div key={'product'+item} className="col-span-10 md:col-span-4 lg:col-span-2">
+              <div key={'product'+item} className="col-span-6 md:col-span-4 lg:col-span-2">
                 <ProductCard></ProductCard>
               </div>
             )

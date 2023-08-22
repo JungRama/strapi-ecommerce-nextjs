@@ -10,15 +10,15 @@ import {
 export default function CheckoutPage() {
   return (
     <>
-      <div className="grid min-h-[100vh] grid-cols-12 md:gap-[15px] lg:gap-[60px]">
-        <div className="col-span-12 md:col-span-6 lg:col-span-6 bg-slate-50 border-l">
-          <div className="ml-[15vw]">
-            <div className="pt-24 px-[60px] h-full flex flex-col gap-5">
+      <div className="grid min-h-[100vh] grid-cols-12 gap-[15px] lg:gap-[60px]">
+        <div className="col-span-12 md:col-span-6 lg:col-span-6 md:bg-slate-50 border-l hidde">
+          <div className="mx-[15px] xl:ml-[15vw]">
+            <div className="pt-24 md:mx-[15px] lg:mx-[60px] h-full flex flex-col gap-5">
               <CartItem showAction={false}></CartItem>
               <CartItem showAction={false}></CartItem>
             </div>
 
-            <Card className="mx-[60px] mt-5">
+            <Card className="md:mx-[15px] lg:mx-[60px] mt-5">
               <CardContent className="my-6 pb-0">
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between">
@@ -47,7 +47,7 @@ export default function CheckoutPage() {
         </div>
 
         <div className="col-span-12 md:col-span-6 lg:col-span-6">
-          <div className="mr-[15vw]">
+          <div className="mx-[15px] mb-20 md:mb-0 md:mr-[15px] lg:mr-[60px] xl:mr-[15vw]">
             <div className="pt-24 h-full">
               <h2 className="text-xl font-bold">Shipping Information</h2>
               <div className="flex mb-12 gap-2 text-sm mt-2">

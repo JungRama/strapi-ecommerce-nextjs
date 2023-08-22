@@ -12,10 +12,10 @@ export default function ProductSort() {
   const [sort, setSort] = useState<string>('latest')
 
   return (
-    <div className="flex items-center">
-      <Label htmlFor="sorting" className="mr-2 text-gray-500">Sorting</Label>
+    <div className="flex items-center w-full md:w-auto">
+      <Label htmlFor="sorting" className="mr-2 text-gray-500 hidden md:block">Sorting</Label>
       <Select onValueChange={value => setSort(value)} defaultValue={sort}>
-        <SelectTrigger className="w-[200px]">
+        <SelectTrigger className="w-full md:w-[200px]">
           <SelectValue placeholder="Select Sorting" />
         </SelectTrigger>
         <SelectContent id="sorting">

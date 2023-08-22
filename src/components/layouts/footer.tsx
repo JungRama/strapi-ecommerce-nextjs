@@ -4,7 +4,11 @@ export default function Footer() {
   return (
     <footer className="bg-slate-100 lg:grid lg:grid-cols-5">
       <div className="relative block h-32 lg:col-span-2 lg:h-full">
-        <NextImage src={'/images/bg-footer.png'} width={1500} height={1100} className="inset-0 h-full w-full object-cover" alt="bg-footer"></NextImage>
+        <NextImage src={'/images/bg-footer.png'} width={1500} height={1100} className="inset-0 h-full w-full object-cover" 
+        classNames={{
+          image: 'object-cover h-[100%]'
+        }}
+        alt="bg-footer"></NextImage>
       </div>
 
       <div className="px-4 py-16 sm:px-6 lg:col-span-3 lg:px-8">

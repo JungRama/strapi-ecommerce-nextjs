@@ -61,10 +61,9 @@ export default function DetailTransactionCard() {
           </div>
           <hr className="my-6" />
         </div>
-
         
-        <div className="grid grid-cols-12 md:gap-[15px] lg:gap[30px]">
-          <div className="col-span-12 md:col-span-6 lg:col-span-6">
+        <div className="grid grid-cols-12 gap-[15px] lg:gap[30px]">
+          <div className="col-span-12 md:col-span-12 lg:col-span-6">
             <Card>
               <CardContent className="my-3">
                 <p className="font-bold mb-2">Shipping Information : </p>
@@ -100,7 +99,7 @@ export default function DetailTransactionCard() {
             </Card>
           </div>
 
-          <div className="col-span-12 md:col-span-6 lg:col-span-6">
+          <div className="col-span-12 md:col-span-12 lg:col-span-6">
             <p className="font-bold mb-2">Payment Information : </p>
 
             <table className="w-full text-sm">

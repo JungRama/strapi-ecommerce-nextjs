@@ -57,8 +57,10 @@ export default function ProductFilter() {
           <Button variant={"outline"}>
             <SlidersHorizontal className="h-3" />
             Filter Product
+            <div className="hidden xl:flex">
             {filterForm.shoes_for && <Badge variant={"secondary"} className="ml-1">Shoes For: <span className="capitalize"> {filterForm.shoes_for}</span></Badge>}
             <Badge variant={"secondary"} className="ml-1">Min - Max Price: ${filterForm.min_price} - ${filterForm.max_price}</Badge>
+            </div>
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">

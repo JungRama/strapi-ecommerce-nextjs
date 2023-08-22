@@ -10,7 +10,7 @@ import { ArrowLeftCircle, Map, User } from "lucide-react";
 export default function FormCheckoutShippingService() {
   return (
     <div>
-      <div className="grid grid-cols-12 md:gap-[15px] lg:gap[30px]">
+      <div className="grid grid-cols-12 gap-[15px] lg:gap[30px]">
       </div>
 
       <Card>
@@ -55,7 +55,7 @@ export default function FormCheckoutShippingService() {
 
       <p className="font-bold mb-2 mt-5">Select Shipping</p>
 
-      <div className="grid grid-cols-12 md:gap-[15px] lg:gap[30px]">
+      <div className="grid grid-cols-12 gap-[15px] lg:gap[30px]">
         <div className="col-span-12 md:col-span-12 lg:col-span-12">
           <div className="flex flex-col gap-2">
             <Card>

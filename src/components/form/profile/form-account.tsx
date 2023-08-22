@@ -15,7 +15,7 @@ export default function FormAccount() {
         <p className="text-sm opacity-50 w-[80%]">Update your account information here</p>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-12 md:gap-[15px] lg:gap[30px]">
+        <div className="grid grid-cols-12 gap-[15px] lg:gap[30px]">
           <div className="col-span-12 md:col-span-12 lg:col-span-12">
             <div>
               <Label htmlFor="name">Name</Label>

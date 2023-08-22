@@ -10,7 +10,7 @@ export default function OrderDetailGuest() {
   return (
     <LayoutMain>
       <div className="container my-20">
-        <div className="grid grid-cols-12 md:gap-[15px] lg:gap[30px]">
+        <div className="grid grid-cols-12 gap-[15px] lg:gap[30px]">
           {!validToView && 
             <div className="col-[1_/_span_12] md:col-[1_/_span_12] lg:col-[3_/_span_8]">
               <div className="flex justify-center items-center my-40">
