@@ -16,8 +16,8 @@ const sidebarNavItems = [
     href: "/profile/waiting-for-payment",
   },
   {
-    title: "Settings",
-    href: "/profile/settings",
+    title: "Account",
+    href: "/profile/account",
   },
   {
     title: "Logout",
