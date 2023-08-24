@@ -2,7 +2,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
+import { signOut } from "next-auth/react"
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -37,6 +38,10 @@ export function SidebarProfile({ className, items, ...props }: SidebarNavProps) 
           {item.title}
         </Link>
       ))}
+      
+      <Button variant={'link'} className="justify-start" onClick={() => signOut({ callbackUrl: '/' })}>
+        Logout
+      </Button>
     </nav>
   )
 }

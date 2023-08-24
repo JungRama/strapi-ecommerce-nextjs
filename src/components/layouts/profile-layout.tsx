@@ -19,10 +19,6 @@ const sidebarNavItems = [
     title: "Account",
     href: "/profile/account",
   },
-  {
-    title: "Logout",
-    href: "/logout",
-  },
 ]
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {

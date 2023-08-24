@@ -1,32 +1,102 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+
+import { useState } from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { ValidationFormRegister, ValidationFormRegisterSchema } from "@/components/validations/auth-validation"
+
+import UseErrorHandler from "@/lib/use-error-handler"
+import { signUpWithCredential } from "@/features/auth"
+import { useRouter } from "next/router"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import GoogleAuthButton from "./google-auth-button"
 
 export default function FormRegister() {
+
+  const { handleRejection } = UseErrorHandler()
+
+  const { register, handleSubmit, watch, reset: resetFormRegister, formState: { errors } } = useForm<ValidationFormRegisterSchema>({
+    resolver: zodResolver(ValidationFormRegister)
+  })
+
+  const [showConfirmEmailAlert, setShowConfirmEmailAlert] = useState(false)
+
+  const onRegisterWithCredential: SubmitHandler<ValidationFormRegisterSchema> = async (data) =>  {
+    try {
+      const { response, error } = await signUpWithCredential({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      })
+      
+      if(error) {
+        throw error.message
+      }
+
+      resetFormRegister()
+      
+      setShowConfirmEmailAlert(true)
+
+    } catch (error) {
+      handleRejection(error)
+    }
+  }
+
   return (
     <>
-      <div>
-        <Label htmlFor="email">Name</Label>
-        <Input type="text" placeholder="eg. John Doe" />
-      </div>
 
-      <div>
-        <Label htmlFor="email">Email</Label>
-        <Input type="email" id="email" placeholder="johndoe@example.com" />
-      </div>
+      {showConfirmEmailAlert && 
+        <Alert variant={"default"} className="bg-green-600 text-white">
+          <AlertTitle>Please confirm your email</AlertTitle>
+          <AlertDescription className="text-sm">We have sent you a link to your email. Click the link to confirm your email.</AlertDescription>
+        </Alert>
+      }
 
-      <div>
-        <Label htmlFor="password">Password</Label>
-        <Input type="password" id="password" placeholder="Enter min. 8 character" />
-      </div>
-      
-      <div>
-        <Label htmlFor="confirm-password">Confirm Password</Label>
-        <Input type="password" id="confirm-password" placeholder="Re-enter your password" />
-      </div>
+      <form onSubmit={handleSubmit(onRegisterWithCredential)} className="space-y-4">
+        <div>
+          <Label htmlFor="name">Name</Label>
+          <Input {...register("name")} defaultValue={'rama'} id="name" type="text" placeholder="eg. John Doe" />
+          {errors.name && (
+            <p className="text-xs italic text-red-500 mt-2">
+              {errors.name?.message}
+            </p>
+          )}
+        </div>
 
-      <Button><Link href={'/profile'}>Register</Link></Button>
+        <div>
+          <Label htmlFor="email">Email</Label>
+          <Input {...register("email")} defaultValue={'jungrama.id@gmail.com'} type="email" id="email" placeholder="johndoe@example.com" />
+          {errors.email && (
+            <p className="text-xs italic text-red-500 mt-2">
+              {errors.email?.message}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <Label htmlFor="password">Password</Label>
+          <Input {...register("password")} defaultValue={'password'} type="password" id="password" placeholder="Enter min. 8 character" />
+          {errors.password && (
+              <p className="text-xs italic text-red-500 mt-2">
+                {errors.password?.message}
+              </p>
+            )}
+        </div>
+        
+        <div>
+          <Label htmlFor="confirm-password">Confirm Password</Label>
+          <Input {...register("confirmPassword")} defaultValue={'password'} type="password" id="confirm-password" placeholder="Re-enter your password" />
+          {errors.confirmPassword && (
+            <p className="text-xs italic text-red-500 mt-2">
+              {errors.confirmPassword?.message}
+            </p>
+          )}
+        </div>
+
+        <Button className="w-full" type="submit">Register</Button>
+      </form>
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
@@ -39,25 +109,7 @@ export default function FormRegister() {
         </div>
       </div>
 
-      <Button variant={'outline'}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 186.69 190.5">
-          <g transform="translate(1184.583 765.171)">
-            <path clip-path="none" mask="none"
-              d="M-1089.333-687.239v36.888h51.262c-2.251 11.863-9.006 21.908-19.137 28.662l30.913 23.986c18.011-16.625 28.402-41.044 28.402-70.052 0-6.754-.606-13.249-1.732-19.483z"
-              fill="#4285f4" />
-            <path clip-path="none" mask="none"
-              d="M-1142.714-651.791l-6.972 5.337-24.679 19.223h0c15.673 31.086 47.796 52.561 85.03 52.561 25.717 0 47.278-8.486 63.038-23.033l-30.913-23.986c-8.486 5.715-19.31 9.179-32.125 9.179-24.765 0-45.806-16.712-53.34-39.226z"
-              fill="#34a853" />
-            <path clip-path="none" mask="none"
-              d="M-1174.365-712.61c-6.494 12.815-10.217 27.276-10.217 42.689s3.723 29.874 10.217 42.689c0 .086 31.693-24.592 31.693-24.592-1.905-5.715-3.031-11.776-3.031-18.098s1.126-12.383 3.031-18.098z"
-              fill="#fbbc05" />
-            <path
-              d="M-1089.333-727.244c14.028 0 26.497 4.849 36.455 14.201l27.276-27.276c-16.539-15.413-38.013-24.852-63.731-24.852-37.234 0-69.359 21.388-85.032 52.561l31.692 24.592c7.533-22.514 28.575-39.226 53.34-39.226z"
-              fill="#ea4335" clip-path="none" mask="none" />
-          </g>
-        </svg>
-          <span className="ml-2">Google</span>
-      </Button>
+      <GoogleAuthButton></GoogleAuthButton>
     </>
   )
 }

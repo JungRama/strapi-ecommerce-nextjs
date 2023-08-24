@@ -4,13 +4,19 @@ import {
   Card,
   CardHeader,
 } from "@/components/ui/card"
+import { useSession } from "next-auth/react";
 
 export default function Transaction() {
+  const session = useSession()
+  const userData = session.data?.user
+
   return (
     <ProfileLayout>
       <div className="grid grid-cols-12 gap-[15px] lg:gap[30px]">
         <div className="col-span-12 md:col-span-4 lg:col-span-4">
-          <h2 className="text-2xl mb-5">Hi, Welcome <br /> <b>Jung Rama</b></h2>
+          <h2 className="text-2xl mb-5">Hi, Welcome <br /> 
+          {userData && <b>{userData.name}</b>}
+          </h2>
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
