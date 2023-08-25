@@ -4,6 +4,7 @@ import { SkeletonProduct } from '@/components/skeleton';
 import { useQuery } from "@tanstack/react-query"
 import { ErrorCard } from "@/components/errors/error-card"
 import { useRouter } from "next/router";
+import { Search } from "lucide-react";
 
 export default function ProductListItem() {
   const router = useRouter()
@@ -47,6 +48,18 @@ export default function ProductListItem() {
 
   if(isError) {
     return <ErrorCard message={(error as Error).message}></ErrorCard>
+  }
+
+  if(products.length <= 0) {
+    return (
+      <div className="flex h-[450px] mb-10 shrink-0 items-center justify-center rounded-md border border-dashed">
+        <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
+          <Search></Search>
+          <p className="mt-4 text-lg font-semibold">No Product Found</p>
+          <p className="mb-4 mt-2 text-sm text-muted-foreground">Oops, it seems like there are no products currently available in this category. Please explore other categories to discover exciting products.</p>
+        </div>
+      </div>
+    )
   }
 
   return (

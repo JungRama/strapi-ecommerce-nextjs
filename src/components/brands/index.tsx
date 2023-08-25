@@ -60,14 +60,26 @@ export default function BrandList ({ activeBrand, clearQuerySearch = true }: {
                 pathname: '/product',
                 query: (() => {
                   if(clearQuerySearch) {
-                    return {
-                      brand: item.slug
+                    const newQuery = {
+                      brand: activeBrand === item.slug ? undefined : item.slug
                     }
+
+                    if(activeBrand === item.slug) {
+                      delete newQuery.brand
+                    }
+
+                    return newQuery
                   }else {
-                    return {
+                    const newQuery = {
                       ...router.query,
-                      brand: item.slug
+                      brand: activeBrand === item.slug ? undefined : item.slug
                     }
+                    
+                    if(activeBrand === item.slug) {
+                      delete newQuery.brand
+                    }
+
+                    return newQuery
                   }
                 })()
               }}>
