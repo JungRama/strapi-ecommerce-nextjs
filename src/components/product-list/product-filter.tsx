@@ -22,18 +22,23 @@ import { Badge } from "@/components/ui/badge"
 import { Slider } from "@/components/ui/slider"
 
 import { useState } from "react"
+import { useRouter } from "next/router"
 
 export interface Filter {
-  shoes_for: string | null,
-  min_price: number,
-  max_price: number,
+  category: string | null,
+  minPrice: number,
+  maxPrice: number,
 }
 
 export default function ProductFilter() {
+  const router = useRouter()
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
   const [filterForm, setFilterForm] = useState({
-    shoes_for: 'all',
-    min_price: 0,
-    max_price: 100,
+    category: 'all',
+    minPrice: 0,
+    maxPrice: 100,
   })
 
   const handleFormInput = <T extends keyof Filter>(field: T, value: Filter[T]) => {
@@ -42,32 +47,47 @@ export default function ProductFilter() {
       [field]: value
     }))
     
-    if(field === 'max_price' && filterForm.min_price > filterForm.max_price) {
+    if(field === 'maxPrice' && filterForm.minPrice > filterForm.maxPrice) {
       setFilterForm(prevState => ({
         ...prevState,
-        min_price: value as number
+        minPrice: value as number
       }))
     }
   }
 
+  const submitFilter = () => {
+    const { query } = router
+
+    query.category = filterForm.category
+    query.minPrice = filterForm.minPrice.toString()
+    query.maxPrice = filterForm.maxPrice.toString()
+
+    router.push({
+      pathname: '/product',
+      query: query
+    })
+
+    setModalOpen(false)
+  }
+
   return (
     <>
-      <Dialog>
+      <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
         <DialogTrigger asChild>
           <Button variant={"outline"}>
             <SlidersHorizontal className="h-3" />
             Filter Product
             <div className="hidden xl:flex">
-            {filterForm.shoes_for && <Badge variant={"secondary"} className="ml-1">Shoes For: <span className="capitalize"> {filterForm.shoes_for}</span></Badge>}
-            <Badge variant={"secondary"} className="ml-1">Min - Max Price: ${filterForm.min_price} - ${filterForm.max_price}</Badge>
+            {filterForm.category && <Badge variant={"secondary"} className="ml-1">Shoes For: <span className="capitalize"> {filterForm.category}</span></Badge>}
+            <Badge variant={"secondary"} className="ml-1">Min - Max Price: ${filterForm.minPrice} - ${filterForm.maxPrice}</Badge>
             </div>
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <div>
-            <Label htmlFor="shoes_for">Shoes For</Label>
-            <Select onValueChange={value => handleFormInput('shoes_for', value)} defaultValue={filterForm.shoes_for}>
-              <SelectTrigger id="shoes_for" className="w-full">
+            <Label htmlFor="category">Shoes For</Label>
+            <Select onValueChange={value => handleFormInput('category', value)} defaultValue={filterForm.category}>
+              <SelectTrigger id="category" className="w-full">
                 <SelectValue placeholder="Select One. Men, Woman, or Kids" />
               </SelectTrigger>
               <SelectContent>
@@ -82,21 +102,21 @@ export default function ProductFilter() {
           <div className="mb-3">
             <div className="flex justify-between mb-2">
               <Label className="block">Min Price</Label>
-              <p className="text-sm">${filterForm.min_price}</p>
+              <p className="text-sm">${filterForm.minPrice}</p>
             </div>
-            <Slider onValueChange={value => handleFormInput('min_price', value[0])} defaultValue={[filterForm.max_price > filterForm.max_price ? filterForm.max_price : filterForm.min_price]} max={filterForm.max_price} step={1} />
+            <Slider onValueChange={value => handleFormInput('minPrice', value[0])} defaultValue={[filterForm.maxPrice > filterForm.maxPrice ? filterForm.maxPrice : filterForm.minPrice]} max={filterForm.maxPrice} step={1} />
           </div>
 
           <div>
             <div className="flex justify-between mb-2">
               <Label className="block">Max Price</Label>
-              <p className="text-sm">${filterForm.max_price}</p>
+              <p className="text-sm">${filterForm.maxPrice}</p>
             </div>
-            <Slider onValueChange={value => handleFormInput('max_price', value[0])} defaultValue={[filterForm.max_price]} max={100} step={1} />
+            <Slider onValueChange={value => handleFormInput('maxPrice', value[0])} defaultValue={[filterForm.maxPrice]} max={100} step={1} />
           </div>
 
           <DialogFooter>
-            <Button>
+            <Button onClick={() => submitFilter()}>
               Filter Now
             </Button>
           </DialogFooter>

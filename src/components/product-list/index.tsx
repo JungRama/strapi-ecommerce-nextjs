@@ -3,10 +3,32 @@ import { GetProducts } from "@/features/products"
 import { SkeletonProduct } from '@/components/skeleton';
 import { useQuery } from "@tanstack/react-query"
 import { ErrorCard } from "@/components/errors/error-card"
+import { useRouter } from "next/router";
 
 export default function ProductListItem() {
-  const { data: products, isLoading, isError, error } = useQuery(['products'], async () => {
-    return GetProducts()
+  const router = useRouter()
+
+  const { 
+    brand,
+    category,
+    collection,
+    minPrice,
+    maxPrice,
+    sorting,
+   } = router.query
+
+  console.log(router.query);
+
+  const { data: products, isLoading, isError, error } = useQuery(
+    ['products', brand, category], async () => {
+    return GetProducts({
+      brand: brand as string,
+      category: category as string,
+      collection: collection as string,
+      minPrice: minPrice ? parseInt(minPrice as string) : undefined,
+      maxPrice: maxPrice ? parseInt(maxPrice as string) : undefined,
+      sorting: sorting as string,
+    })
   })
 
   if(isLoading) {

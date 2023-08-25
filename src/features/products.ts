@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '@/features/const';
-import { ProductInterface } from '@/types/api/product';
+import { FilterProductInterface, ProductInterface } from '@/types/api/product';
 import { CollectionInterface } from '@/types/api/collection';
 
 
@@ -46,7 +46,9 @@ export const GetCollections = async () => {
  *
  * @return {ProductInterface} The featured sneakers.
  */
-export const GetProducts = async () => {
+export const GetProducts = async (filter?: FilterProductInterface) => {
+  console.log(filter);
+  
   const req = await axios.get(BASE_URL+'products', {
     params: {
       populate: [
@@ -56,16 +58,22 @@ export const GetProducts = async () => {
         'category',
       ],
       filters: {
-        // brand: {
-        //   slug: {
-        //     $eq: 'adidas'
-        //   }
-        // },
-        category: {
-          slug: {
-            $eq: 'men'
+        $and: [
+          {
+            brand: {
+              slug: {
+                $eq: filter?.brand ?? undefined
+              }
+            },
+          },
+          {
+            category: {
+              slug: {
+                $eq: filter?.category ?? undefined
+              }
+            }
           }
-        }
+        ]
       }
     }
   })

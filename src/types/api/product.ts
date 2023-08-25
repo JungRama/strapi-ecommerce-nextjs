@@ -21,3 +21,12 @@ export interface ProductInterface {
   brand?: Pick<BrandInterface, "name" | "slug">
   category?: Pick<CategoryInterface, "name" | "slug">
 }
+
+export interface FilterProductInterface {
+  brand?: string
+  category?: string
+  collection?: string
+  minPrice?: number
+  maxPrice?: number
+  sorting?: string
+}

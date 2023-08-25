@@ -9,8 +9,16 @@ import { useQuery } from '@tanstack/react-query';
 import { GetBrands } from '@/features/brands';
 import { IMAGE_URL } from '@/features/const';
 import { ErrorCard } from '../errors/error-card';
+import { cn } from '@/lib/utils';
+import { useRouter } from 'next/router';
 
-export default function BrandList () {
+export default function BrandList ({ activeBrand, clearQuerySearch = true }: {
+  activeBrand?: string,
+  clearQuerySearch?: boolean
+}) {
+  
+  const router = useRouter()
+
   const { data: brands, isLoading, isError, error } = 
   useQuery({
     queryKey: ['brand-list'], 
@@ -48,8 +56,25 @@ export default function BrandList () {
       {brands?.map(item => {
           return (
             <SwiperSlide key={'brand-'+item.id}>
-              <Link href={`/product?brand=${item.slug}`}>
-                <div className="bg-slate-100 px-3 w-full py-3 flex items-center justify-center flex-col rounded-md border border-transparent hover:shadow-sm hover:border-slate-300">
+              <Link href={{
+                pathname: '/product',
+                query: (() => {
+                  if(clearQuerySearch) {
+                    return {
+                      brand: item.slug
+                    }
+                  }else {
+                    return {
+                      ...router.query,
+                      brand: item.slug
+                    }
+                  }
+                })()
+              }}>
+                <div className={
+                  cn('bg-slate-100 px-3 w-full py-3 flex items-center justify-center flex-col rounded-md border border-transparent hover:shadow-sm hover:border-slate-300', 
+                  activeBrand === item.slug ? 'border-black' : 'border-transparent')
+                }>
                   {item.logo &&
                     <NextImage src={IMAGE_URL+ (item.logo.url ?? '')} height={50} width={50} alt={item.name}></NextImage>
                   }
