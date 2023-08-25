@@ -18,6 +18,90 @@ import Cart from '@/components/cart'
 import SearchInput from '../search'
 import MenuSideBarMobile from './menu-sidebar-mobile'
 
+import { useQuery } from '@tanstack/react-query';
+import { GetBrands } from '@/features/brands';
+import { SkeletonBrand, SkeletonCategory } from '../skeleton'
+import { ErrorCard } from '../errors/error-card'
+import { IMAGE_URL } from '@/features/const'
+import { GetCategories } from '@/features/categories'
+
+function BrandHeader() {
+  const { data: brands, isLoading, isError, error } = 
+  useQuery({
+    queryKey: ['brand-list'], 
+    queryFn: async () => {
+      return await GetBrands()
+    },
+    // The staleTime option allows you to specify the duration 
+    // in milliseconds that the cached data is considered fresh 
+    // and can be used without refetching.
+    staleTime: Infinity
+  })
+
+  if(isLoading) {
+    return <SkeletonBrand></SkeletonBrand>
+  }
+
+  else if(isError) {
+    return <ErrorCard message={(error as Error).message}></ErrorCard>
+  }
+  
+  return (
+    <ul className="grid w-[200px]">
+      {brands?.map(item => (
+        <li key={'brand-list-header'+item.id}>
+          <Link className='px-4 py-2 flex items-center hover:bg-slate-100' 
+            href={`/product?brand=${item.slug}`}>
+            <NextImage src={IMAGE_URL+ (item.logo?.url ?? '')} width={30} height={30} useSkeleton alt='nike'></NextImage>
+            <p className='ml-3'>{item.name}</p>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function CategoryHeader() {
+  const { data: categories, isLoading, isError, error } = 
+  useQuery({
+    queryKey: ['cateogry-list'], 
+    queryFn: async () => {
+      return await GetCategories()
+    },
+    // The staleTime option allows you to specify the duration 
+    // in milliseconds that the cached data is considered fresh 
+    // and can be used without refetching.
+    staleTime: Infinity
+  })
+
+  if(isLoading) {
+    return <SkeletonCategory></SkeletonCategory>
+  }
+
+  else if(isError) {
+    return <ErrorCard message={(error as Error).message}></ErrorCard>
+  }
+  
+  return (
+    <ul className="grid w-[400px]">
+      {categories?.map(item => (
+        <li key={'category-list-header-'+item.id}>
+          <Link className='p-4 flex items-center justify-between hover:bg-slate-100' 
+            href={`/product?category=${item.slug}`}>
+            <div>
+              <p className='font-bold'>{item.name}</p>
+              <p className='text-sm'>{item.short_description}</p>
+            </div>
+            <div>
+            <ChevronRight />
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export default function Header() {
   return (
     <>
@@ -42,67 +126,14 @@ export default function Header() {
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>Explore Sneakers</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px]">
-                        <li>
-                          <Link className='p-4 flex items-center justify-between hover:bg-slate-100' href={'/'}>
-                            <div>
-                              <p className='font-bold'>Men</p>
-                              <p className='text-sm'>Explore men shoes collections</p>
-                            </div>
-                            <div>
-                            <ChevronRight />
-                            </div>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className='p-4 flex items-center justify-between hover:bg-slate-100' href={'/'}>
-                            <div>
-                              <p className='font-bold'>Female</p>
-                              <p className='text-sm'>Explore female shoes collections</p>
-                            </div>
-                            <div>
-                            <ChevronRight />
-                            </div>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className='p-4 flex items-center justify-between hover:bg-slate-100' href={'/'}>
-                            <div>
-                              <p className='font-bold'>Kids</p>
-                              <p className='text-sm'>Explore kids shoes collections</p>
-                            </div>
-                            <div>
-                            <ChevronRight />
-                            </div>
-                          </Link>
-                        </li>
-                      </ul>
+                      <CategoryHeader></CategoryHeader>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>Explore Brands</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[200px]">
-                        <li>
-                          <Link className='px-4 py-2 flex items-center hover:bg-slate-100' href={'/'}>
-                            <NextImage src={'/images/nike.png'} width={30} height={30} useSkeleton alt='nike'></NextImage>
-                            <p className='ml-3'>Nike</p>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className='px-4 py-2 flex items-center hover:bg-slate-100' href={'/'}>
-                            <NextImage src={'/images/new-balance.png'} width={30} height={30} useSkeleton alt='new-balance'></NextImage>
-                            <p className='ml-3'>New Balance</p>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className='px-4 py-2 flex items-center hover:bg-slate-100' href={'/'}>
-                            <NextImage src={'/images/adidas.png'} width={30} height={30} useSkeleton alt='adidas'></NextImage>
-                            <p className='ml-3'>Adidas</p>
-                          </Link>
-                        </li>
-                      </ul>
+                      <BrandHeader></BrandHeader>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                 </NavigationMenuList>
@@ -128,7 +159,6 @@ export default function Header() {
                   </Button>
                 }></MenuSideBarMobile>
               </div>
-
 
               <Button size={'sm'} asChild className='hidden md:flex'>
                 <Link href="/login">

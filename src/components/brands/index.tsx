@@ -8,11 +8,26 @@ import 'swiper/css';
 import { useQuery } from '@tanstack/react-query';
 import { GetBrands } from '@/features/brands';
 import { IMAGE_URL } from '@/features/const';
+import { ErrorCard } from '../errors/error-card';
 
 export default function BrandList () {
-  const { data: brands, isLoading, isError } = useQuery(['brand-list'], async () => {
-    return GetBrands()
+  const { data: brands, isLoading, isError, error } = 
+  useQuery({
+    queryKey: ['brand-list'], 
+    queryFn: async () => {
+      return await GetBrands()
+    }
   })
+
+  if(isLoading) {
+    return (
+      <SkeletonBrand></SkeletonBrand>
+    )
+  }
+
+  else if(isError) {
+    return <ErrorCard message={(error as Error).message}></ErrorCard>
+  }
 
   return (
     <Swiper
@@ -30,25 +45,13 @@ export default function BrandList () {
         }
       }
     >
-      
-      {isLoading && 
-        [...Array(20)].map((item, index) => {
-          return (
-            <SwiperSlide key={'skeleton-brand-'+index}>
-              <SkeletonBrand></SkeletonBrand>
-            </SwiperSlide>
-          )
-        })
-      }
-
-      {(!isLoading && !isError) && 
-        brands?.map(item => {
+      {brands?.map(item => {
           return (
             <SwiperSlide key={'brand-'+item.id}>
               <Link href={`/product?brand=${item.slug}`}>
                 <div className="bg-slate-100 px-3 w-full py-3 flex items-center justify-center flex-col rounded-md border border-transparent hover:shadow-sm hover:border-slate-300">
                   {item.logo &&
-                    <NextImage src={IMAGE_URL+item.logo.url} height={50} width={50} alt='nike'></NextImage>
+                    <NextImage src={IMAGE_URL+ (item.logo.url ?? '')} height={50} width={50} alt={item.name}></NextImage>
                   }
                   <p>{item.name}</p>
                 </div>

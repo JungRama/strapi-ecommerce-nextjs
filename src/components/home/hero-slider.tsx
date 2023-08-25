@@ -8,10 +8,15 @@ import { GetBanners } from '@/features/banners';
 import { SkeletonBanner } from '../skeleton';
 import { IMAGE_URL } from '@/features/const';
 import Link from 'next/link';
+import { ErrorCard } from '../errors/error-card';
 
 export default function HeroSlider() {
-  const { data: banners, isLoading, isError } = useQuery(['hero-slider'], async () => {
-    return GetBanners()
+  const { data: banners, isLoading, isError, error } = 
+  useQuery({
+    queryKey: ['hero-slider'], 
+    queryFn: async () => {
+      return await GetBanners()
+    }
   })
 
   if(isLoading) {
@@ -19,7 +24,7 @@ export default function HeroSlider() {
   }
 
   else if(isError) {
-    return <div>Error</div>
+    return <ErrorCard message={(error as Error).message}></ErrorCard>
   }
 
   return (
@@ -33,7 +38,7 @@ export default function HeroSlider() {
             <SwiperSlide key={'banner-home-'+item.id}>
               <Link href={item.url}>
                 {item.image &&
-                  <NextImage src={IMAGE_URL+item.image.url} width={2400} height={800} className='w-full' alt='hero-banner' useSkeleton></NextImage>
+                  <NextImage src={IMAGE_URL+ (item.image.url ?? '')} width={2400} height={800} className='w-full' alt='hero-banner' useSkeleton></NextImage>
                 }
               </Link>
             </SwiperSlide>

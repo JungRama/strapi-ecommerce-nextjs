@@ -34,7 +34,16 @@ export default function NextImage({
   const [status, setStatus] = React.useState(
     useSkeleton ? 'loading' : 'complete'
   );
+
+  const [error, setError] = React.useState(false)
+
+  React.useEffect(() => {
+    setError(false)
+  }, [src])
+  
   const widthIsSet = className?.includes('w-') ?? false;
+
+  const fallbackImage = '/images/fallback-image.png'
 
   return (
     <figure
@@ -46,7 +55,8 @@ export default function NextImage({
           classNames?.image,
           status === 'loading' && cn('animate-pulse', classNames?.blur)
         )}
-        src={src}
+        onError={() => setError(true)}
+        src={error ? fallbackImage : src}
         width={width}
         height={height}
         alt={alt}

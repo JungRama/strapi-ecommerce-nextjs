@@ -1,0 +1,23 @@
+import { BrandInterface } from "./brand"
+import { CategoryInterface } from "./category"
+import { ImageInterface } from "./image"
+
+export interface ProductInterface {
+  id: number
+  name: string
+  description: string
+  short_description: string
+  createdAt: string
+  updatedAt: string
+  publishedAt: string
+  slug: string
+  product_variant: {
+    id: number
+    variant_image: ImageInterface
+    variant_name: string
+    variant_price: number
+  }[],
+  thumbnail: ImageInterface
+  brand?: Pick<BrandInterface, "name" | "slug">
+  category?: Pick<CategoryInterface, "name" | "slug">
+}
