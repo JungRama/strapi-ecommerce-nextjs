@@ -26,7 +26,7 @@ export interface FilterProductInterface {
   brand?: string
   category?: string
   collection?: string
-  minPrice?: number
-  maxPrice?: number
-  sorting?: string
+  minPrice?: string
+  maxPrice?: string
+  sort?: string
 }

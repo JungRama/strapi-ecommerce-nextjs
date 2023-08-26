@@ -18,8 +18,14 @@ export default function ProductCard({ name, category, brand, thumbnail, variantP
     if(variantPrice.length <= 0) {
       return 0
     }
-
     return Math.min(...variantPrice)
+  }
+
+  const getHighestPrice = () => {
+    if(variantPrice.length <= 0) {
+      return 0
+    }
+    return Math.max(...variantPrice)
   }
   
   const currenctFormat = new Intl.NumberFormat('en-US', {
@@ -55,7 +61,13 @@ export default function ProductCard({ name, category, brand, thumbnail, variantP
         }
         </div>
         <p className='font-bold'>{name}</p>
-        <p>{currenctFormat.format(getCheapestPrice())}</p>
+
+        <div className="flex">
+          <p className="text-sm">{currenctFormat.format(getCheapestPrice())}</p>
+          {getCheapestPrice() !== getHighestPrice() &&
+            <p className="text-sm"> - {currenctFormat.format(getHighestPrice())}</p>
+          }
+        </div>
       </div>
     </Link>
   )

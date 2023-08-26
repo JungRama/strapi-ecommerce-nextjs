@@ -15,20 +15,18 @@ export default function ProductListItem() {
     collection,
     minPrice,
     maxPrice,
-    sorting,
+    sort,
    } = router.query
 
-  console.log(router.query);
-
   const { data: products, isLoading, isError, error } = useQuery(
-    ['products', brand, category], async () => {
+    ['products', brand, category, collection, minPrice, maxPrice, sort], async () => {
     return GetProducts({
       brand: brand as string,
       category: category as string,
       collection: collection as string,
-      minPrice: minPrice ? parseInt(minPrice as string) : undefined,
-      maxPrice: maxPrice ? parseInt(maxPrice as string) : undefined,
-      sorting: sorting as string,
+      minPrice: minPrice ? minPrice as string : undefined,
+      maxPrice: maxPrice ? maxPrice as string : undefined,
+      sort: sort as string,
     })
   })
 

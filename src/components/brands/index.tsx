@@ -19,6 +19,36 @@ export default function BrandList ({ activeBrand, clearQuerySearch = true }: {
   
   const router = useRouter()
 
+  const brandLinkPath = (slug: string) => {
+    return {
+      pathname: '/product',
+      query: (() => {
+        if(clearQuerySearch) {
+          const newQuery = {
+            brand: activeBrand === slug ? undefined : slug
+          }
+
+          if(activeBrand === slug) {
+            delete newQuery.brand
+          }
+
+          return newQuery
+        }else {
+          const newQuery = {
+            ...router.query,
+            brand: activeBrand === slug ? undefined : slug
+          }
+          
+          if(activeBrand === slug) {
+            delete newQuery.brand
+          }
+
+          return newQuery
+        }
+      })()
+    }
+  }
+
   const { data: brands, isLoading, isError, error } = 
   useQuery({
     queryKey: ['brand-list'], 
@@ -29,7 +59,9 @@ export default function BrandList ({ activeBrand, clearQuerySearch = true }: {
 
   if(isLoading) {
     return (
-      <SkeletonBrand></SkeletonBrand>
+      <div className='mb-10'>
+        <SkeletonBrand></SkeletonBrand>
+      </div>
     )
   }
 
@@ -56,33 +88,7 @@ export default function BrandList ({ activeBrand, clearQuerySearch = true }: {
       {brands?.map(item => {
           return (
             <SwiperSlide key={'brand-'+item.id}>
-              <Link href={{
-                pathname: '/product',
-                query: (() => {
-                  if(clearQuerySearch) {
-                    const newQuery = {
-                      brand: activeBrand === item.slug ? undefined : item.slug
-                    }
-
-                    if(activeBrand === item.slug) {
-                      delete newQuery.brand
-                    }
-
-                    return newQuery
-                  }else {
-                    const newQuery = {
-                      ...router.query,
-                      brand: activeBrand === item.slug ? undefined : item.slug
-                    }
-                    
-                    if(activeBrand === item.slug) {
-                      delete newQuery.brand
-                    }
-
-                    return newQuery
-                  }
-                })()
-              }}>
+              <Link href={brandLinkPath(item.slug)}>
                 <div className={
                   cn('bg-slate-100 px-3 w-full py-3 flex items-center justify-center flex-col rounded-md border border-transparent hover:shadow-sm hover:border-slate-300', 
                   activeBrand === item.slug ? 'border-black' : 'border-transparent')

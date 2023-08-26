@@ -21,7 +21,7 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Slider } from "@/components/ui/slider"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
 export interface Filter {
@@ -30,15 +30,16 @@ export interface Filter {
   maxPrice: number,
 }
 
-export default function ProductFilter() {
+export default function ProductFilter({ highestPrice }: { highestPrice: number }) {
   const router = useRouter()
+  const { query } = router
 
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [filterForm, setFilterForm] = useState({
     category: 'all',
     minPrice: 0,
-    maxPrice: 100,
+    maxPrice: highestPrice,
   })
 
   const handleFormInput = <T extends keyof Filter>(field: T, value: Filter[T]) => {
@@ -56,11 +57,13 @@ export default function ProductFilter() {
   }
 
   const submitFilter = () => {
-    const { query } = router
-
     query.category = filterForm.category
     query.minPrice = filterForm.minPrice.toString()
     query.maxPrice = filterForm.maxPrice.toString()
+
+    if(filterForm.category === 'all') {
+      delete query.category
+    }
 
     router.push({
       pathname: '/product',
@@ -69,6 +72,29 @@ export default function ProductFilter() {
 
     setModalOpen(false)
   }
+
+  useEffect(() => {
+    if(query.minPrice) {
+      setFilterForm(prevState => ({
+        ...prevState,
+        minPrice: parseInt(query.minPrice as string)
+      }))
+    }
+
+    if(query.maxPrice) {
+      setFilterForm(prevState => ({
+        ...prevState,
+        maxPrice: parseInt(query.maxPrice as string)
+      }))
+    }
+
+    if(query.category) {
+      setFilterForm(prevState => ({
+        ...prevState,
+        category: query.category as string
+      }))
+    }
+  }, [query])
 
   return (
     <>
@@ -91,7 +117,7 @@ export default function ProductFilter() {
                 <SelectValue placeholder="Select One. Men, Woman, or Kids" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All</SelectItem>
+                <SelectItem value={"all"}>All</SelectItem>
                 <SelectItem value="men">Men</SelectItem>
                 <SelectItem value="woman">Woman</SelectItem>
                 <SelectItem value="kids">Kids</SelectItem>
@@ -112,7 +138,7 @@ export default function ProductFilter() {
               <Label className="block">Max Price</Label>
               <p className="text-sm">${filterForm.maxPrice}</p>
             </div>
-            <Slider onValueChange={value => handleFormInput('maxPrice', value[0])} defaultValue={[filterForm.maxPrice]} max={100} step={1} />
+            <Slider onValueChange={value => handleFormInput('maxPrice', value[0])} defaultValue={[filterForm.maxPrice]} max={highestPrice} step={1} />
           </div>
 
           <DialogFooter>
