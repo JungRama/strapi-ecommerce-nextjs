@@ -19,7 +19,6 @@ export default function ProductSort() {
   useEffect(() => {
     if(query.sort) {
       setSort(query.sort as string)
-      console.log(query.sort);
     }else {
       setSort('latest')
     }

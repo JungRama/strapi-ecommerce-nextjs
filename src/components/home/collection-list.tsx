@@ -47,7 +47,7 @@ export default function CollectionList () {
       {collections.map(item => {
         return (
           <SwiperSlide key={'collection-'+item.id}>
-            <Link href={`/collection/${item.slug}`}>
+            <Link href={`/product?collection=${item.slug}`}>
               <div className='relative rounded-md overflow-hidden'>
                 <div className="overlay flex items-center justify-center absolute left-0 top-0 h-full w-full bg-[rgba(0,0,0,0.8)] hover:bg-[rgba(0,0,0,0.6)]">
                   <div>

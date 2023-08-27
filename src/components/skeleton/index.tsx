@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton"
+import { Star } from "lucide-react"
  
 export function SkeletonBanner() {
   return (
@@ -35,5 +36,75 @@ export function SkeletonCollectionList() {
     <>
       <Skeleton className="h-[200px] w-full"/>
     </>
+  )
+}
+
+export function SkeletonProductDetail() {
+  return (
+    <div className="container mx-auto my-20">
+      <div className="grid grid-cols-12 gap-[15px] lg:gap-[30px]">
+        <div className="col-span-12 md:col-span-6 lg:col-span-6">
+          <Skeleton className="aspect-square w-full"/>
+        </div>
+        <div className="col-span-12 md:col-span-6 lg:col-span-5">
+    
+          <div className="flex flex-wrap items-center justify-between">
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-full"/>
+          </div>
+    
+          <div className="flex items-center gap-5 my-2">
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-full"/>
+          </div>
+    
+          <hr className="opacity-50"/>
+    
+          <div className="mt-3 flex flex-col gap-3">
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-[80%]"/>
+          </div>
+    
+          <div className="grid grid-cols-12 gap-[5px] my-4">
+            {[...Array(6)].map((item, index) => {
+              return (
+                <div key={'skeleton-product-variant-'+index} className="col-span-6 md:col-span-4 lg:col-span-4">
+                  <Skeleton className="h-[40px] w-full"/>
+                </div>    
+              )
+            })}
+          </div>
+    
+          <Skeleton className="h-[40px] w-full"/>
+
+          <div className="mt-10 flex flex-col gap-3">
+            <Skeleton className="h-[20px] w-full"/>
+            <hr className="opacity-50"/>
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-[80%]"/>
+          </div>
+
+          <div className="mt-10 flex flex-col gap-3">
+            <Skeleton className="h-[20px] w-full"/>
+            <hr className="opacity-50"/>
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-[80%]"/>
+          </div>
+
+          <div className="mt-10 flex flex-col gap-3">
+            <Skeleton className="h-[20px] w-full"/>
+            <hr className="opacity-50"/>
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-full"/>
+            <Skeleton className="h-[20px] w-[80%]"/>
+          </div>
+        </div>
+    
+      </div>
+    </div>
   )
 }

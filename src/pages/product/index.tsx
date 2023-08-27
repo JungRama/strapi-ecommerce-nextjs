@@ -15,6 +15,7 @@ import { useRouter } from "next/router"
 export async function getServerSideProps() {
   const products = await getHighestProductPrice()
 
+
   let price = 0
 
   if(products) {
@@ -35,6 +36,8 @@ export async function getServerSideProps() {
 export default function ProductList({highestPrice}: { highestPrice: number }) {
   const router = useRouter()
 
+  console.log(router.query);
+  
   const { brand: activeBrand } = router.query
   
   return (

@@ -39,39 +39,43 @@ export default function ProductCollectionFilter() {
     staleTime: Infinity
   })
 
-  // show name of collection
-  const selectedValue = useMemo(() => {
-    const selected = collections?.find(item => item.slug === collectionSelect)
-    if(selected) {
-      return selected.name
-    }else {
-      return null
-    }
-  }, [collectionSelect]);
-
   // when query changes set state collection
   useEffect(() => {
-    if(query.collection && selectedValue) {
+    if(query.collection) {
       setCollectionSelect(query.collection as string)
     }else {
       setCollectionSelect(null)
     }
   }, [query])
 
-  // When collection change. redirect to product with query
-  useEffect(() => {
-    if(collectionSelect) {
-      router.push('/product?collection=' + collectionSelect)
+  // show name of collection
+  const selectedValue = useMemo(() => {
+    const selected = collections?.find(item => item.slug === collectionSelect)
+
+    if(selected) {
+      return selected.name
     }else {
+      return null
+    }
+  }, [isLoading, collectionSelect]);
+
+
+  // Go to collection path
+  const goToCollection = (slug?: string) => {
+    if(slug) {
+      router.push('/product?collection=' + slug)
+    }else {
+      delete query.collection
+
       router.push({
         pathname: '/product',
         query: query
       })
     }
-  }, [collectionSelect])
+  }
 
   if(isLoading) {
-    return 'Fetching Collection ...'
+    return 'Loading Collection ...'
   }
 
   return (
@@ -94,7 +98,7 @@ export default function ProductCollectionFilter() {
                     return (
                       <CommandItem key={'collection-filter-'+item.id} 
                         className="cursor-pointer"
-                        onSelect={() => setCollectionSelect(item.slug)}>
+                        onSelect={() => goToCollection(item.slug)}>
                         <span>{item.name}</span>
                       </CommandItem>
                     )
@@ -107,16 +111,7 @@ export default function ProductCollectionFilter() {
 
         {collectionSelect && 
         <X className="h-3 ml-2 cursor-pointer" 
-        onClick={() => {
-          delete query.collection
-          
-          router.push({
-            pathname: '/product',
-            query: {
-              ...query
-            }
-          })
-        }}></X>}
+        onClick={() => goToCollection()}></X>}
       </div>
     </>
   )

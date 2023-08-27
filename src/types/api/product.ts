@@ -18,6 +18,7 @@ export interface ProductInterface {
     variant_price: number
   }[],
   thumbnail: ImageInterface
+  images: ImageInterface[]
   brand?: Pick<BrandInterface, "name" | "slug">
   category?: Pick<CategoryInterface, "name" | "slug">
 }

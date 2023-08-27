@@ -12,20 +12,70 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import ImageListProduct from "@/components/product-detail/image-list";
 
+import { useQuery } from "@tanstack/react-query"
+import { useRouter } from "next/router";
+import { GetProductDetail } from "@/features/products";
+import { SkeletonProductDetail } from "@/components/skeleton";
+import { useEffect, useMemo, useState } from "react";
+import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
+
 
 export default function ProductDetail() {
+  const session = useSession()
+  const router = useRouter()
+  const { slug } = router.query
+
+  const { data: product, isLoading, isError, error } = useQuery(
+    ['products', slug], async () => {
+    return GetProductDetail(slug as string)
+  })
+
+  const [selectVariant, setSelectedVariant] = useState<number | null>(null)
+
+  // Get price of the product variant
+  const getPrice = useMemo(() => {
+    const selected = product?.product_variant?.find(item => item.id === selectVariant)
+
+    if(selected) {
+      return selected.variant_price
+    }else {
+      return null
+    }
+  }, [isLoading, selectVariant]);
+
+  // Set selected product variant
+  useEffect(() => {
+    setSelectedVariant(product?.product_variant[0]?.id ?? null)
+  }, [isLoading])
+
+  const addToCart = () => {
+    if(session.status == 'unauthenticated') {
+      router.push('/login')
+    }else {
+    }
+  }
+
+  if(isLoading) {
+    return (
+      <LayoutMain>
+        <SkeletonProductDetail></SkeletonProductDetail>
+      </LayoutMain>
+    )
+  }
 
   return (
     <LayoutMain>
       <div className="container mx-auto my-20">
         <div className="grid grid-cols-12 gap-[15px] lg:gap-[30px]">
           <div className="col-span-12 md:col-span-6 lg:col-span-6">
-            <ImageListProduct></ImageListProduct>
+            <ImageListProduct imageList={product?.images}></ImageListProduct>
           </div>
           <div className="col-span-12 md:col-span-6 lg:col-span-5">
+
             <div className="flex flex-wrap items-center justify-between">
-              <h2 className="text-2xl font-bold">New Balance 990 White</h2>
-              <p className="text-slate-500">Men</p>
+              <h2 className="text-2xl font-bold">{product?.name}</h2>
+              <p className="text-slate-500">{product?.category?.name}</p>
             </div>
 
             <div className="flex items-center my-2">
@@ -38,35 +88,32 @@ export default function ProductDetail() {
 
             <div className="mt-3">
               <p>
-                Introducing the iconic New Balance 990 White—a harmonious blend of timeless design, unparalleled craftsmanship, and cutting-edge technology. With its pristine white hue, this sneaker captures a classic and versatile aesthetic that seamlessly transitions from the streets to various occasions, making it a staple in both sneaker enthusiasts and fashion connoisseurs collections.
+                {product?.description}
               </p>
             </div>
 
             <div className="grid grid-cols-12 gap-[5px] my-4">
-              <div className="col-span-6 md:col-span-4 lg:col-span-4">
-                <Button size={"lg"} variant={'outline'} className="w-full">Size: 43/Black</Button>
-              </div>
-              
-              <div className="col-span-6 md:col-span-4 lg:col-span-4">
-                <Button size={"lg"} variant={'outline'} className="w-full">Size: 42/Black</Button>
-              </div>
-              
-              <div className="col-span-6 md:col-span-4 lg:col-span-4">
-                <Button size={"lg"} variant={'outline'} className="w-full">Size: 41/Black</Button>
-              </div>
-              
-              <div className="col-span-6 md:col-span-4 lg:col-span-4">
-                <Button size={"lg"} variant={'outline'} className="w-full">Size: 40/Black</Button>
-              </div>
+              {product?.product_variant.map((item) => {
+                return (
+                  <div key={'product-variant-'+item.id} className="col-span-6 md:col-span-4 lg:col-span-4">
+                    <Button 
+                    onClick={() => setSelectedVariant(item.id)}
+                    size={"lg"} variant={selectVariant === item.id ? 'secondary' : 'outline'} 
+                    className={cn('w-full border', selectVariant === item.id ? 'border-black' : '')}>{item.variant_name}</Button>
+                  </div>    
+                )
+              })}
             </div>
 
-            <Button size={"lg"} className="w-full">
+            <Button size={"lg"} className="w-full" onClick={() => addToCart()}>
               <div className="flex w-full justify-between items-center">
                 <span className="font-bold uppercase flex items-center gap-3">
                   <ShoppingBasket></ShoppingBasket>  
                   Add to Cart
                 </span> 
-                <span className="font-bold">$40</span> 
+                <span className="font-bold">
+                  ${ getPrice }
+                </span> 
               </div>
             </Button>
 

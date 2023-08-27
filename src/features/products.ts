@@ -14,6 +14,7 @@ export const GetFeaturedSneakers = async () => {
   const req = await axios.get(BASE_URL+'featured-sneaker', {
     params: {
       populate: [
+        'products.images',
         'products.thumbnail',
         'products.product_variant',
         'products.brand',
@@ -79,8 +80,6 @@ export const GetProducts = async (filter?: FilterProductInterface) => {
         'category',
       ],
       sort: (() => {
-        console.log(filter);
-        
         if(filter?.sort === 'price-low-high') {
           return ['product_variant.variant_price:ASC', 'name:ASC']
         }else if(filter?.sort === 'price-high-low') {
@@ -132,12 +131,39 @@ export const GetProducts = async (filter?: FilterProductInterface) => {
     }
   })
 
-  // await new Promise(resolve => setTimeout(resolve, 20000))
-  
-
   const data = req.data.data
 
+  // NOTE: Currently strapi facing problem when product deep sorting
+  // for example product_variant.variant_price:DESC. It will duplicate
+  // the some products. That why we need to remove duplicate products 
+  // within this function
   const uniqueIds = _.uniqBy<ProductInterface>(data, 'id')
 
+  // return data with unique id
   return uniqueIds as ProductInterface[]
+}
+
+/**
+ * Retrieves the details of a product by its slug.
+ *
+ * @param {string} slug - The slug of the product.
+ * @return {ProductInterface} The product details.
+ */
+export const GetProductDetail = async (slug: string) => {
+  const req = await axios.get(BASE_URL+'products/'+slug, {
+    params: {
+      populate: [
+        'images',
+        'product_variant',
+        'brand',
+        'category',
+      ]
+    }
+  })
+  
+  // await new Promise((resolve) => {
+  //   setTimeout(resolve, 3000);
+  // });
+
+  return req.data.data as ProductInterface
 }
