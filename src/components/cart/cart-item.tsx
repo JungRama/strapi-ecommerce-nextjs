@@ -1,6 +1,18 @@
+import { UseCart } from "@/features/cart"
 import NextImage from "../next-image"
 
-export default function CartItem({ showAction = true }: { showAction?: boolean }) {
+interface CartItem {
+  id?: number,
+  name?: string,
+  variant_id?: number,
+  variant_name?: string,
+  price?: number,
+  qty?: number | null
+}
+
+export default function CartItem({ showAction = true, cartItem }: { showAction?: boolean, cartItem: CartItem }) {
+  const { UpdateQuantity, RemoveItemFromCart } = UseCart()
+  
   return (
     <div className="flex">
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -11,26 +23,32 @@ export default function CartItem({ showAction = true }: { showAction?: boolean }
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
             <h3>
-              <a href="#">Throwback Hip Bag</a>
+              <a href="#">{ cartItem.name }</a>
             </h3>
-            <p className="ml-4 text-sm">$90.00</p>
+            <p className="ml-4 text-sm">${cartItem.price}</p>
           </div>
-          <p className="mt-1 text-sm text-gray-500">Salmon</p>
+          <p className="mt-1 text-sm text-gray-500">{cartItem.variant_name}</p>
         </div>
         <div className="flex flex-1 items-end justify-between text-sm">
 
           {showAction && <div className="flex items-center gap-2">
-            <button className="border hover:bg-black hover:text-white h-6 w-6 flex items-center justify-center rounded-sm">-</button>
-            <p className="text-gray-500">1</p>
-            <button className="border hover:bg-black hover:text-white h-6 w-6 flex items-center justify-center rounded-sm">+</button>
+            <button 
+            onClick={() => UpdateQuantity(cartItem?.id, cartItem?.variant_id, ((cartItem?.qty ?? 1) - 1))}
+            className="border hover:bg-black hover:text-white h-6 w-6 flex items-center justify-center rounded-sm">-</button>
+            <p className="text-gray-500">{cartItem.qty}</p>
+            <button 
+            onClick={() => UpdateQuantity(cartItem?.id, cartItem?.variant_id, ((cartItem?.qty ?? 1) + 1))}
+            className="border hover:bg-black hover:text-white h-6 w-6 flex items-center justify-center rounded-sm">+</button>
           </div>}
 
           {!showAction && <div className="flex items-center gap-2">
-            Qty: 2
+            Qty: {cartItem.qty}
           </div>}
           
           {showAction && <div className="flex">
-            <button type="button" className="font-medium text-slate-500">Remove</button>
+            <button type="button" className="font-medium text-slate-500"
+            onClick={() => RemoveItemFromCart(cartItem?.id, cartItem?.variant_id)}>
+            Remove</button>
           </div>}
         </div>
       </div>

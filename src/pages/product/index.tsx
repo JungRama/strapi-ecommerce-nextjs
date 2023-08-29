@@ -4,7 +4,7 @@ import ProductListItem from "@/components/product-list"
 import ProductCollectionFilter from "@/components/product-list/product-collection-filter"
 import ProductFilter from "@/components/product-list/product-filter"
 import ProductSort from "@/components/product-list/product-sort"
-import { getHighestProductPrice } from "@/features/products"
+import { GetHighestProductPrice } from "@/features/products"
 import { useRouter } from "next/router"
 
 /**
@@ -13,8 +13,7 @@ import { useRouter } from "next/router"
  * @return {Promise<object>} The highest product price.
  */
 export async function getServerSideProps() {
-  const products = await getHighestProductPrice()
-
+  const products = await GetHighestProductPrice()
 
   let price = 0
 
@@ -36,8 +35,6 @@ export async function getServerSideProps() {
 export default function ProductList({highestPrice}: { highestPrice: number }) {
   const router = useRouter()
 
-  console.log(router.query);
-  
   const { brand: activeBrand } = router.query
   
   return (

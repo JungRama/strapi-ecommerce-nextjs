@@ -19,6 +19,14 @@ export default function BrandList ({ activeBrand, clearQuerySearch = true }: {
   
   const router = useRouter()
 
+  const { data: brands, isLoading, isError, error } = 
+  useQuery({
+    queryKey: ['brand-list'], 
+    queryFn: async () => {
+      return await GetBrands()
+    }
+  })
+
   const brandLinkPath = (slug: string) => {
     return {
       pathname: '/product',
@@ -48,14 +56,6 @@ export default function BrandList ({ activeBrand, clearQuerySearch = true }: {
       })()
     }
   }
-
-  const { data: brands, isLoading, isError, error } = 
-  useQuery({
-    queryKey: ['brand-list'], 
-    queryFn: async () => {
-      return await GetBrands()
-    }
-  })
 
   if(isLoading) {
     return (

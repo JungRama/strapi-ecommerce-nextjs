@@ -9,7 +9,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import ImageListProduct from "@/components/product-detail/image-list";
 
 import { useQuery } from "@tanstack/react-query"
@@ -18,17 +17,28 @@ import { GetProductDetail } from "@/features/products";
 import { SkeletonProductDetail } from "@/components/skeleton";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { useSession } from "next-auth/react";
+import { UseCart } from "@/features/cart";
+import { ErrorCard } from "@/components/errors/error-card";
+import { useStoreCart } from "@/store/store-cart";
+import Reviews from "@/components/product-detail/reviews";
+import { GetProductReviewCount } from "@/features/reviews";
 
 
 export default function ProductDetail() {
-  const session = useSession()
+  const cartStore = useStoreCart()
   const router = useRouter()
   const { slug } = router.query
+
+  const { AddToCart } = UseCart()
 
   const { data: product, isLoading, isError, error } = useQuery(
     ['products', slug], async () => {
     return GetProductDetail(slug as string)
+  })
+
+  const { data: productReview, isLoading: isLoadingReviewCount } = useQuery(
+    ['product-review-count', slug], async () => {
+    return GetProductReviewCount(slug as string)
   })
 
   const [selectVariant, setSelectedVariant] = useState<number | null>(null)
@@ -49,17 +59,21 @@ export default function ProductDetail() {
     setSelectedVariant(product?.product_variant[0]?.id ?? null)
   }, [isLoading])
 
-  const addToCart = () => {
-    if(session.status == 'unauthenticated') {
-      router.push('/login')
-    }else {
-    }
-  }
 
-  if(isLoading) {
+  if(isLoading ||isLoadingReviewCount) {
     return (
       <LayoutMain>
         <SkeletonProductDetail></SkeletonProductDetail>
+      </LayoutMain>
+    )
+  }
+
+  else if(isError) {
+    return (
+      <LayoutMain>
+        <div className="container mx-auto my-20">
+          <ErrorCard message={(error as Error).message}></ErrorCard>
+        </div>
       </LayoutMain>
     )
   }
@@ -79,9 +93,9 @@ export default function ProductDetail() {
             </div>
 
             <div className="flex items-center my-2">
-              <p className="text-sm">4.1</p>
+              <p className="text-sm">{productReview?.totalReviews} Reviews | </p>
               <Star className="h-3 text-yellow-600"></Star>
-              <p className="text-sm">| 26 Reviews</p>
+              <p className="text-sm">{productReview?.averageRating}</p>
             </div>
 
             <hr className="opacity-50"/>
@@ -105,7 +119,10 @@ export default function ProductDetail() {
               })}
             </div>
 
-            <Button size={"lg"} className="w-full" onClick={() => addToCart()}>
+            <Button size={"lg"} className="w-full" onClick={() => {
+              AddToCart(product?.id ?? null, selectVariant, 1)
+              cartStore.setIsCartOpen(true)
+            }}>
               <div className="flex w-full justify-between items-center">
                 <span className="font-bold uppercase flex items-center gap-3">
                   <ShoppingBasket></ShoppingBasket>  
@@ -135,31 +152,7 @@ export default function ProductDetail() {
               <AccordionItem value="reviews">
                 <AccordionTrigger>Customer Reviews</AccordionTrigger>
                 <AccordionContent>
-                  <div className="flex flex-col gap-5">
-                    <div className="flex items-center gap-3">
-                      <Avatar>
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                      <div className="w-full">
-                        <p className="font-bold mb-1 w-full flex items-center">
-                          Animasa <Star className="h-3 text-yellow-600"></Star> 3
-                        </p>
-                        <p>What a good quality of shoes. very recommended to buy it here</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <Avatar>
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                      <div className="w-full">
-                        <p className="font-bold mb-1 w-full flex items-center">
-                          Animasa <Star className="h-3 text-yellow-600"></Star> 3
-                        </p>
-                        <p>What a good quality of shoes. very recommended to buy it here</p>
-                      </div>
-                    </div>
-                  </div>
+                  <Reviews slug={slug as string}></Reviews>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

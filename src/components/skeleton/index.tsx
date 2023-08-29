@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { Star } from "lucide-react"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
  
 export function SkeletonBanner() {
   return (
@@ -106,5 +107,22 @@ export function SkeletonProductDetail() {
     
       </div>
     </div>
+  )
+}
+
+export function SkeletonProductReview() {
+  return (
+    <>
+      <div className="flex items-center gap-3">
+        <Avatar>
+          <AvatarFallback>U</AvatarFallback>
+        </Avatar>
+        <div className="w-full flex flex-col space-y-2">
+          <Skeleton className="h-[20px] w-60%"/>
+          <Skeleton className="h-[20px] w-full"/>
+          <Skeleton className="h-[20px] w-[80%]"/>
+        </div>
+      </div>
+    </>
   )
 }

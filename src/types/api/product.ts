@@ -13,7 +13,6 @@ export interface ProductInterface {
   slug: string
   product_variant: {
     id: number
-    variant_image: ImageInterface
     variant_name: string
     variant_price: number
   }[],

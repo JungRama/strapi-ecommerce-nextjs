@@ -46,7 +46,7 @@ export const GetCollections = async () => {
   return req.data.data as CollectionInterface[]
 }
 
-export const getHighestProductPrice = async () => {
+export const GetHighestProductPrice = async () => {
   const req = await axios.get(BASE_URL+'products', {
     params: {
       pagination: {
@@ -167,3 +167,23 @@ export const GetProductDetail = async (slug: string) => {
 
   return req.data.data as ProductInterface
 }
+
+export const ProductInArrayId = async (idProducts: number[]) => {
+  const req = await axios.get(BASE_URL+'products', {
+    params: {
+      populate: [
+        'images',
+        'product_variant',
+        'brand',
+        'category',
+      ],
+      filters: {
+        id: {
+          $in: idProducts
+        }
+      }
+    },
+  })
+
+  return req.data.data as ProductInterface[]
+}  
