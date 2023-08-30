@@ -5,8 +5,11 @@ import { SkeletonProduct } from '../skeleton';
 import { ErrorCard } from '../errors/error-card';
 
 export default function FeaturedSneakers() {
-  const { data: products, isLoading, isError, error } = useQuery(['featured-sneakers'], async () => {
-    return GetFeaturedSneakers()
+  const { data: products, isLoading, isError, error } = useQuery({
+    queryKey: ['featured-sneakers'],
+    queryFn: async () => {
+      return GetFeaturedSneakers()
+    }
   })
 
   if(isLoading) {

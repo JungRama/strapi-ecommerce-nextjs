@@ -1,9 +1,11 @@
 import { UseCart } from "@/features/cart"
 import NextImage from "../next-image"
+import { IMAGE_URL } from "@/features/const"
 
 interface CartItem {
   id?: number,
   name?: string,
+  image?: string,
   variant_id?: number,
   variant_name?: string,
   price?: number,
@@ -16,7 +18,7 @@ export default function CartItem({ showAction = true, cartItem }: { showAction?:
   return (
     <div className="flex">
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-        <NextImage src={'/images/product.png'} alt="product" width={200} height={200} className="h-full w-full object-cover object-center"></NextImage>
+        <NextImage src={IMAGE_URL+cartItem.image} alt="product" width={200} height={200} className="h-full w-full object-cover object-center"></NextImage>
       </div>
 
       <div className="ml-4 flex flex-1 flex-col">

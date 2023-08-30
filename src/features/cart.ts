@@ -115,6 +115,7 @@ export const UseCart = () => {
 
         return {
           id: productData?.id,
+          image: productData?.thumbnail.url,
           name: productData?.name,
           variant_id: productVariant?.id,
           variant_name: productVariant?.variant_name,

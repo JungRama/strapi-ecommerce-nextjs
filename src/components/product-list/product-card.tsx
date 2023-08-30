@@ -45,18 +45,14 @@ export default function ProductCard({ name, category, brand, thumbnail, variantP
       <div className="mt-3">
         <div className="flex items-center">
         {category && 
-          <Link href={'/product?category='+category.slug}>
-            <p className='text-xs'>{category.name}</p>
-          </Link>
+          <p className='text-xs'>{category.name}</p>
         }
         {brand &&
           <div className="flex items-center">
             <span className="mx-1">
             -
             </span>
-            <Link href={'/product?brand='+brand.slug}>
-              <p className='text-xs'>{brand.name}</p>
-            </Link>
+            <p className='text-xs'>{brand.name}</p>
           </div>
         }
         </div>

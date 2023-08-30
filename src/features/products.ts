@@ -168,11 +168,17 @@ export const GetProductDetail = async (slug: string) => {
   return req.data.data as ProductInterface
 }
 
+/**
+ * Retrieves products from the API based on the given array of product IDs.
+ *
+ * @param {number[]} idProducts - An array of product IDs.
+ * @return {ProductInterface[]} - An array of product data.
+ */
 export const ProductInArrayId = async (idProducts: number[]) => {
   const req = await axios.get(BASE_URL+'products', {
     params: {
       populate: [
-        'images',
+        'thumbnail',
         'product_variant',
         'brand',
         'category',
@@ -186,4 +192,31 @@ export const ProductInArrayId = async (idProducts: number[]) => {
   })
 
   return req.data.data as ProductInterface[]
-}  
+}
+
+export const SearchProduct = async (search: string) => {
+  if(search.length <= 0) {
+    return [] as ProductInterface[]
+  }
+  
+  const req = await axios.get(BASE_URL+'products', {
+    params: {
+      populate: [
+        'thumbnail',
+        'product_variant',
+        'brand',
+        'category',
+      ],
+      pagination: {
+        limit: 5
+      },
+      filters: {
+        name: {
+          $contains: search
+        }
+      }
+    },
+  })
+
+  return req.data.data as ProductInterface[]
+}

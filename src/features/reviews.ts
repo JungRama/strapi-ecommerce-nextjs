@@ -3,7 +3,7 @@ import { BASE_URL } from '@/features/const';
 import { ReviewInterface } from '@/types/api/review';
 
 export const GetProductReviews = async (slug: string) => {
-  const req = await axios.get(BASE_URL+'product-reviews/'+slug, {
+  const req = await axios.get(BASE_URL+'product-reviews/', {
     params: {
       pagination: {
         limit: -1

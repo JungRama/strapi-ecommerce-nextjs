@@ -23,7 +23,6 @@ import { useStoreCart } from "@/store/store-cart";
 import Reviews from "@/components/product-detail/reviews";
 import { GetProductReviewCount } from "@/features/reviews";
 
-
 export default function ProductDetail() {
   const cartStore = useStoreCart()
   const router = useRouter()
@@ -31,14 +30,19 @@ export default function ProductDetail() {
 
   const { AddToCart } = UseCart()
 
-  const { data: product, isLoading, isError, error } = useQuery(
-    ['products', slug], async () => {
-    return GetProductDetail(slug as string)
+  const { data: product, isLoading, isError, error } = useQuery({
+    queryKey: ['products', slug],
+    queryFn: async () => {
+      return GetProductDetail(slug as string)
+    },
+    enabled: !!slug
   })
 
-  const { data: productReview, isLoading: isLoadingReviewCount } = useQuery(
-    ['product-review-count', slug], async () => {
-    return GetProductReviewCount(slug as string)
+  const { data: productReview, isLoading: isLoadingReviewCount } = useQuery({
+    queryKey: ['product-review-count', slug],
+    queryFn: async () => {
+      return GetProductReviewCount(slug as string)
+    }
   })
 
   const [selectVariant, setSelectedVariant] = useState<number | null>(null)

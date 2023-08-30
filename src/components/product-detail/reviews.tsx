@@ -6,9 +6,11 @@ import { ErrorCard } from "../errors/error-card";
 import { SkeletonProductReview } from "../skeleton";
 
 export default function Reviews({ slug }: { slug: string }) {
-  const { data: reviews, isLoading, isError, error } = useQuery(
-    ['reviews', slug], async () => {
-    return GetProductReviews(slug as string)
+  const { data: reviews, isLoading, isError, error } = useQuery({
+    queryKey: ['reviews', slug],
+    queryFn: async () => {
+      return GetProductReviews(slug as string)
+    }
   })
 
   if(isLoading) {

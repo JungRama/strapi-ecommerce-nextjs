@@ -92,6 +92,7 @@ export default function Cart(props: propsInterface) {
                         {
                           id: item.id,
                           name: item.name,
+                          image: item.image,
                           variant_id: item.variant_id,
                           variant_name: item.variant_name,
                           price: item.price,

@@ -18,16 +18,18 @@ export default function ProductListItem() {
     sort,
    } = router.query
 
-  const { data: products, isLoading, isError, error } = useQuery(
-    ['products', brand, category, collection, minPrice, maxPrice, sort], async () => {
-    return GetProducts({
-      brand: brand as string,
-      category: category as string,
-      collection: collection as string,
-      minPrice: minPrice ? minPrice as string : undefined,
-      maxPrice: maxPrice ? maxPrice as string : undefined,
-      sort: sort as string,
-    })
+  const { data: products, isLoading, isError, error } = useQuery({
+    queryKey: ['products', brand, category, collection, minPrice, maxPrice, sort],
+    queryFn: async () => {
+      return GetProducts({
+        brand: brand as string,
+        category: category as string,
+        collection: collection as string,
+        minPrice: minPrice ? minPrice as string : undefined,
+        maxPrice: maxPrice ? maxPrice as string : undefined,
+        sort: sort as string,
+      })
+    }
   })
 
   if(isLoading) {
