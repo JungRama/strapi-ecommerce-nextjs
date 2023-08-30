@@ -99,7 +99,6 @@ export default function ProductListItem() {
           nextLinkClassName={buttonVariants({variant: 'secondary'})}
           activeLinkClassName={'!bg-black !hover:bg-black !text-white !hover:text-white'}
           onPageChange={(e) => {
-            console.log(e);
             router.push({
               pathname: '/product',
               query: {

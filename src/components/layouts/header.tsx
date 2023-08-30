@@ -24,6 +24,7 @@ import { SkeletonBrand, SkeletonCategory } from '../skeleton'
 import { ErrorCard } from '../errors/error-card'
 import { IMAGE_URL } from '@/features/const'
 import { GetCategories } from '@/features/categories'
+import { useStoreCart } from "@/store/store-cart"
 
 function BrandHeader() {
   const { data: brands, isLoading, isError, error } = 
@@ -103,6 +104,8 @@ function CategoryHeader() {
 }
 
 export default function Header() {
+  const { cartItem } = useStoreCart()
+
   return (
     <>
       <HeaderTopPromo></HeaderTopPromo>
@@ -146,7 +149,7 @@ export default function Header() {
                   <Button variant="outline" size="icon" className='relative'>
                     <ShoppingBasket />
                     <div className='absolute -right-2 -top-2 text-xs bg-black h-5 w-5 flex items-center justify-center rounded-full text-white'>
-                      9
+                      {cartItem.length}
                     </div>
                   </Button>
                 }></Cart>
