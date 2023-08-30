@@ -70,9 +70,13 @@ export const GetHighestProductPrice = async () => {
  *
  * @return {ProductInterface} The featured sneakers.
  */
-export const GetProducts = async (filter?: FilterProductInterface) => {
+export const GetProducts = async (filter?: FilterProductInterface, page: string = '1') => {
   const req = await axios.get(BASE_URL+'products', {
     params: {
+      pagination: {
+        pageSize: 24,
+        page
+      },
       populate: [
         'thumbnail',
         'product_variant',
@@ -140,7 +144,12 @@ export const GetProducts = async (filter?: FilterProductInterface) => {
   const uniqueIds = _.uniqBy<ProductInterface>(data, 'id')
 
   // return data with unique id
-  return uniqueIds as ProductInterface[]
+  return {
+    data: uniqueIds,
+    pagination: req.data?.meta?.pagination
+  }
+  
+  uniqueIds as ProductInterface[]
 }
 
 /**
