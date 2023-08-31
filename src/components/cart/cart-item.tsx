@@ -1,6 +1,7 @@
 import { UseCart } from "@/features/cart"
 import NextImage from "../next-image"
 import { IMAGE_URL } from "@/features/const"
+import { currencyFormat } from "@/lib/use-currency"
 
 interface CartItem {
   id?: number,
@@ -27,7 +28,7 @@ export default function CartItem({ showAction = true, cartItem }: { showAction?:
             <h3>
               <a href="#">{ cartItem.name }</a>
             </h3>
-            <p className="ml-4 text-sm">${cartItem.price}</p>
+            <p className="ml-4 text-sm">{currencyFormat(cartItem.price ?? 0)}</p>
           </div>
           <p className="mt-1 text-sm text-gray-500">{cartItem.variant_name}</p>
         </div>

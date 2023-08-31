@@ -126,3 +126,12 @@ export function SkeletonProductReview() {
     </>
   )
 }
+
+
+export function SkeletonShipping() {
+  return (
+    <>
+      <Skeleton className="h-[80px] w-full"/>
+    </>
+  )
+}

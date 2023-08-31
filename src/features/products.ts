@@ -203,6 +203,12 @@ export const ProductInArrayId = async (idProducts: number[]) => {
   return req.data.data as ProductInterface[]
 }
 
+/**
+ * Searches for products based on the given search string.
+ *
+ * @param {string} search - The search string to filter products by name.
+ * @return {ProductInterface[]} - An array of products that match the search query.
+ */
 export const SearchProduct = async (search: string) => {
   if(search.length <= 0) {
     return [] as ProductInterface[]

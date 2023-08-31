@@ -3,6 +3,7 @@ import NextImage from "../next-image";
 import { CategoryInterface } from "@/types/api/category";
 import { IMAGE_URL } from "@/features/const";
 import { BrandInterface } from "@/types/api/brand";
+import { currencyFormat } from "@/lib/use-currency";
 
 export interface ProductCardInterface {
   name: string
@@ -27,11 +28,6 @@ export default function ProductCard({ name, category, brand, thumbnail, variantP
     }
     return Math.max(...variantPrice)
   }
-  
-  const currenctFormat = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  })
   
   return (
     <Link href={`/product/${slug}`}>
@@ -59,9 +55,9 @@ export default function ProductCard({ name, category, brand, thumbnail, variantP
         <p className='font-bold'>{name}</p>
 
         <div className="flex">
-          <p className="text-sm">{currenctFormat.format(getCheapestPrice())}</p>
+          <p className="text-sm">{currencyFormat(getCheapestPrice())}</p>
           {getCheapestPrice() !== getHighestPrice() &&
-            <p className="text-sm"> - {currenctFormat.format(getHighestPrice())}</p>
+            <p className="text-sm"> - {currencyFormat(getHighestPrice())}</p>
           }
         </div>
       </div>

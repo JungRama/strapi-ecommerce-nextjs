@@ -6,16 +6,78 @@ import {
   CardContent,
   CardHeader,
 } from "@/components/ui/card"
+import { UseCart } from "@/features/cart";
+import { currencyFormat } from "@/lib/use-currency";
+import { useStoreCart } from "@/store/store-cart";
+import { useStoreCheckout } from "@/store/store-checkout";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 export default function CheckoutPage() {
+  const { currentForm, formShippingInformation } = useStoreCheckout()
+
+  const { GetCart } = UseCart()
+  const { cartItem } = useStoreCart()
+
+  // Why we need to mapping this cartItem?
+  // The reason is because we only want it fetching the product 
+  // data when there are new variant and product in the cart
+  // We exclude the quantity, because when we are change the quantity in cart
+  // It will refetch the api which is useless
+  const { data: cart, isLoading, isError, error } = 
+  useQuery({
+    queryKey: ['cart-item', cartItem.map(item => {
+      return {
+        variant: item.variantId,
+        productId: item.productId,
+      }
+    })], 
+    queryFn: async () => {
+      return await GetCart()
+    }
+  })
+
+  // To get the quantity of the product use this.
+  const getQuantity = (productId?: number, variantId?: number) => {
+    const data = cartItem.find(item => item.productId === productId && item.variantId === variantId)
+    return data?.qty ?? 0
+  }
+
+  // To get the quantity of the product use this.
+  const countSubTotal = () => {
+    return cart?.reduce((total, item) => total + (item?.price ?? 0) * getQuantity(item.id, item.variant_id), 0)
+  }
+
+  const countTotal = () => {
+    return countSubTotal()
+  }
+
   return (
     <>
       <div className="grid min-h-[100vh] grid-cols-12 gap-[15px] lg:gap-[60px]">
         <div className="col-span-12 md:col-span-6 lg:col-span-6 md:bg-slate-50 border-l hidde">
           <div className="mx-[15px] xl:ml-[15vw]">
             <div className="pt-24 md:mx-[15px] lg:mx-[60px] h-full flex flex-col gap-5">
-              <CartItem showAction={false}></CartItem>
-              <CartItem showAction={false}></CartItem>
+              {/* <CartItem showAction={false}></CartItem>
+              <CartItem showAction={false}></CartItem> */}
+              { cart?.map(item => {
+                  return (
+                    <div key={'product-cart-'+ item.id + item.variant_id}>
+                      <CartItem showAction={false} cartItem={
+                        {
+                          id: item.id,
+                          name: item.name,
+                          image: item.image,
+                          variant_id: item.variant_id,
+                          variant_name: item.variant_name,
+                          price: item.price,
+                          qty:  getQuantity(item?.id, item?.variant_id)
+                        }
+                      }></CartItem>
+                    </div>
+                  )
+                })
+              }
             </div>
 
             <Card className="md:mx-[15px] lg:mx-[60px] mt-5">
@@ -23,22 +85,22 @@ export default function CheckoutPage() {
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between">
                     <p className="text-sm">Subtotal</p>
-                    <p className="font-bold text-sm">$80</p>
+                    <p className="font-bold text-sm">{currencyFormat(countSubTotal() ?? 0)}</p>
                   </div>
                   <div className="flex justify-between">
                     <p className="text-sm">Shipping</p>
                     <p className="font-bold text-sm">Calculated in next step</p>
                   </div>
-                  <div className="flex justify-between">
+                  {/* <div className="flex justify-between">
                     <p className="text-sm">Discount</p>
                     <p className="font-bold text-sm text-red-500">-$80</p>
-                  </div>
+                  </div> */}
                   <div>
                     <hr className="my-2" />
                   </div>
                   <div className="flex justify-between">
                     <p className="font-bold">Total</p>
-                    <p className="font-bold">$80</p>
+                    <p className="font-bold">{currencyFormat(countTotal() ?? 0)}</p>
                   </div>
                 </div>
               </CardContent>
@@ -57,8 +119,13 @@ export default function CheckoutPage() {
                 <p>/</p>
                 <p className="opacity-50">03. <br className="inline-block md:hidden" /> Payment</p>
               </div>
-              {/* <FormCheckoutShippingInformation></FormCheckoutShippingInformation> */}
-              <FormCheckoutShippingService></FormCheckoutShippingService>
+              {currentForm === 'SHIPPING_INFORMATION' &&
+                <FormCheckoutShippingInformation></FormCheckoutShippingInformation>
+              }
+
+              {currentForm === 'SHIPPING_SERVICE' &&
+                <FormCheckoutShippingService></FormCheckoutShippingService>
+              }
             </div>
           </div>
         </div>

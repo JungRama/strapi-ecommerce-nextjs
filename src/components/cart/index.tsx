@@ -23,8 +23,8 @@ export interface propsInterface {
 }
 
 export default function Cart(props: propsInterface) {  
-  const { GetCart, GetCartFromLocalStorage } = UseCart()
-  const { setCartItem, cartProductsIdOnly, isCartOpen, setIsCartOpen, cartItem } = useStoreCart()
+  const { GetCart } = UseCart()
+  const { setCartItem, isCartOpen, setIsCartOpen, cartItem } = useStoreCart()
 
   // Why we need to mapping this cartItem?
   // The reason is because we only want it fetching the product 
