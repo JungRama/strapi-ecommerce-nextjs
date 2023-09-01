@@ -186,6 +186,9 @@ export const GetProductDetail = async (slug: string) => {
 export const ProductInArrayId = async (idProducts: number[]) => {
   const req = await axios.get(BASE_URL+'products', {
     params: {
+      pagination: {
+        limit: -1
+      },
       populate: [
         'thumbnail',
         'product_variant',

@@ -4,7 +4,7 @@ import { ValidationShippingInformationSchema } from '@/components/validations/sh
 import { RatesInterface, ValidateAddressInterface } from '@/types/api/checkout';
 
 export const ValidateAddress = async (data: ValidationShippingInformationSchema) => {
-  const req = await axios.post(BASE_URL+'order/checkout/validate-address', {
+  const req = await axios.post(BASE_URL+'orders/checkout/validate-address', {
     data
   })
 
@@ -12,12 +12,22 @@ export const ValidateAddress = async (data: ValidationShippingInformationSchema)
 }
 
 export const GetShippingRate = async (data: any) => {
-  const req = await axios.post(BASE_URL+'order/checkout/shipping-rate', {
+  const req = await axios.post(BASE_URL+'orders/checkout/shipping-rate', {
     address: {
       ...data.address
     },
-    parcel: [...data.parcel]
+    parcel: data.parcel
   })
 
   return req.data as RatesInterface
+}
+
+export const CheckoutItem = async (data: any) => {
+  const req = await axios.post(BASE_URL+'orders', {
+    items: data.items,
+    shipping: data.shipping,
+    customer: data.customer
+  })
+
+  return req.data
 }

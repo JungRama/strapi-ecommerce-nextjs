@@ -119,9 +119,14 @@ export const UseCart = () => {
           name: productData?.name,
           variant_id: productVariant?.id,
           variant_name: productVariant?.variant_name,
-          price: productVariant?.variant_price
+          price: productVariant?.variant_price,
+          width: productVariant?.width,
+          length: productVariant?.length,
+          height: productVariant?.height,
+          weight: productVariant?.weight,
         }
       })
+      
     }
 
     return []
@@ -142,11 +147,17 @@ export const UseCart = () => {
     setCartItem(updatedCart)
   }
 
+  const ClearCart = () => {
+    localStorage.removeItem('cart')
+    setCartItem([])
+  }
+
   return {
     AddToCart,
     GetCartFromLocalStorage,
     GetCart,
     UpdateQuantity,
-    RemoveItemFromCart
+    RemoveItemFromCart,
+    ClearCart
   }
 }

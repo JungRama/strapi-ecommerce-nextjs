@@ -15,6 +15,10 @@ export interface ProductInterface {
     id: number
     variant_name: string
     variant_price: number
+    width: number
+    length: number
+    height: number
+    weight: number
   }[],
   thumbnail: ImageInterface
   images: ImageInterface[]

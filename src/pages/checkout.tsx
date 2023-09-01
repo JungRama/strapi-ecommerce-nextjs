@@ -14,7 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 export default function CheckoutPage() {
-  const { currentForm, formShippingInformation } = useStoreCheckout()
+  const { currentForm, formShippingInformation, formShippingService } = useStoreCheckout()
 
   const { GetCart } = UseCart()
   const { cartItem } = useStoreCart()
@@ -49,7 +49,21 @@ export default function CheckoutPage() {
   }
 
   const countTotal = () => {
-    return countSubTotal()
+    return (countSubTotal() ?? 0) + (formShippingService.price ? parseFloat(formShippingService.price) : 0)
+  }
+
+  const parcelSize = () => {
+    const width = cart?.map(item => item.width ? item.width : 0) ?? [0]
+    const length = cart?.map(item => item.length ? item.length : 0) ?? [0]
+    const height = cart?.map(item => item.height ? item.height : 0) ?? [0]
+    const weight = cart?.map(item => item.height ? item.height : 0) ?? [0]
+
+    return {
+      width: Math.max(...width) / 10,
+      height: Math.max(...height) / 10,
+      length: Math.max(...length) / 10,
+      weight: weight?.reduce((a, b) => (a ?? 0) + (b ?? 0), 0) / 10
+    }
   }
 
   return (
@@ -58,8 +72,6 @@ export default function CheckoutPage() {
         <div className="col-span-12 md:col-span-6 lg:col-span-6 md:bg-slate-50 border-l hidde">
           <div className="mx-[15px] xl:ml-[15vw]">
             <div className="pt-24 md:mx-[15px] lg:mx-[60px] h-full flex flex-col gap-5">
-              {/* <CartItem showAction={false}></CartItem>
-              <CartItem showAction={false}></CartItem> */}
               { cart?.map(item => {
                   return (
                     <div key={'product-cart-'+ item.id + item.variant_id}>
@@ -89,12 +101,8 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex justify-between">
                     <p className="text-sm">Shipping</p>
-                    <p className="font-bold text-sm">Calculated in next step</p>
+                    <p className="font-bold text-sm">{formShippingService.price ? currencyFormat(parseFloat(formShippingService.price)) : 'Select service to calculate' }</p>
                   </div>
-                  {/* <div className="flex justify-between">
-                    <p className="text-sm">Discount</p>
-                    <p className="font-bold text-sm text-red-500">-$80</p>
-                  </div> */}
                   <div>
                     <hr className="my-2" />
                   </div>
@@ -108,23 +116,31 @@ export default function CheckoutPage() {
           </div>
         </div>
 
+
         <div className="col-span-12 md:col-span-6 lg:col-span-6">
-          <div className="mx-[15px] mb-20 md:mb-0 md:mr-[15px] lg:mr-[60px] xl:mr-[15vw]">
+          <div className="mx-[15px] mb-20 md:mb-0 md:mr-[15px] lg:mr-[60px] xl:mr-[15vw] pb-10">
             <div className="pt-24 h-full">
               <h2 className="text-xl font-bold">Shipping Information</h2>
               <div className="flex mb-12 gap-2 text-sm mt-2">
                 <p>01. <br className="inline-block md:hidden" /> Shipping Information</p>
                 <p>/</p>
-                <p className="opacity-50">02. <br className="inline-block md:hidden" /> Shipping Service</p>
+                <p>02. <br className="inline-block md:hidden" /> Shipping Service</p>
                 <p>/</p>
-                <p className="opacity-50">03. <br className="inline-block md:hidden" /> Payment</p>
+                <p>03. <br className="inline-block md:hidden" /> Payment</p>
               </div>
               {currentForm === 'SHIPPING_INFORMATION' &&
                 <FormCheckoutShippingInformation></FormCheckoutShippingInformation>
               }
 
               {currentForm === 'SHIPPING_SERVICE' &&
-                <FormCheckoutShippingService></FormCheckoutShippingService>
+                <FormCheckoutShippingService cartData={
+                  cart?.map(item => {
+                    return {
+                      ...item,
+                      qty: getQuantity(item?.id, item?.variant_id)
+                    }
+                  }) ?? []
+                } parcelSize={parcelSize()}></FormCheckoutShippingService>
               }
             </div>
           </div>

@@ -160,8 +160,8 @@ export default function FormCheckoutShippingInformation() {
           Back
         </Button>
         <Button className="mt-4" type="submit" disabled={isLoading}>
-          {isLoading && <Spinner></Spinner>}
-          <span className="ml-2">Continue Shipping</span>
+          {isLoading && <div className="mr-2"><Spinner></Spinner></div>}
+          <span>Continue Shipping</span>
         </Button>
       </div>
     </form>
