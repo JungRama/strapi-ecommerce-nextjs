@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap');
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap");
 
 @layer base {
   :root {
@@ -27,7 +27,7 @@
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -52,7 +52,7 @@
 }
 
 body {
-  font-family: 'Satoshi', sans-serif;
+  font-family: "Satoshi", sans-serif;
 }
 
 .container-fluid {
@@ -60,18 +60,17 @@ body {
   padding-right: 20px;
 }
 
-
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
   background-color: transparent;
   mix-blend-mode: difference;
 }
- 
+
 ::-webkit-scrollbar-track {
   // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
- 
+
 ::-webkit-scrollbar-thumb {
   background-color: #ababab;
   border-radius: 100px;

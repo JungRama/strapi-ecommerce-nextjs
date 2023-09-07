@@ -19,9 +19,13 @@ const sidebarNavItems = [
     title: "Account",
     href: "/profile/account",
   },
-]
+];
 
-export default function ProfileLayout({ children }: { children: React.ReactNode }) {
+export default function ProfileLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <LayoutMain>
       <div className="container mx-auto">
@@ -37,12 +41,10 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
             <aside className="-mx-4 lg:w-1/5">
               <SidebarProfile items={sidebarNavItems} />
             </aside>
-            <div className="flex-1">
-              {children}
-            </div>
+            <div className="flex-1">{children}</div>
           </div>
         </div>
       </div>
     </LayoutMain>
-  )
+  );
 }

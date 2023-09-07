@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 
 import {
   Command,
@@ -13,46 +13,50 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command"
+} from "@/components/ui/command";
 
-import { ChevronsUpDown, X } from "lucide-react"
-import { useEffect, useState } from "react"
+import { ChevronsUpDown, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export interface propsInterface {
-  showClear?: boolean,
-  label: string,
+  showClear?: boolean;
+  label: string;
   items: {
-    value: string | number | null,
-    name: string | number | null
-  }[],
-  defaultValue?: string | number | null,
-  onDataChange?: (value: string | number | null) => void
+    value: string | number | null;
+    name: string | number | null;
+  }[];
+  defaultValue?: string | number | null;
+  onDataChange?: (value: string | number | null) => void;
 }
 
-export default function SelectSearch({showClear = false, label, items, onDataChange, defaultValue}: propsInterface) {
-  const [select, setSelect] = useState<string | number | null>(null)
-  const [isOpen, setOpen] = useState<boolean>(false)
+export default function SelectSearch({
+  showClear = false,
+  label,
+  items,
+  onDataChange,
+  defaultValue,
+}: propsInterface) {
+  const [select, setSelect] = useState<string | number | null>(null);
+  const [isOpen, setOpen] = useState<boolean>(false);
 
   const dataChange = (selected: string | number | null) => {
-    setSelect(selected)
-    if(onDataChange) {
-      onDataChange(selected)
+    setSelect(selected);
+    if (onDataChange) {
+      onDataChange(selected);
     }
-  }
+  };
 
   const findSelectedName = () => {
-    if(select) {
-      return items.find(item => item.value === select)?.name
-    }else {
-      return null
+    if (select) {
+      return items.find((item) => item.value === select)?.name;
+    } else {
+      return null;
     }
-  }
+  };
 
   useEffect(() => {
-    defaultValue && setSelect(defaultValue)
-  }, [])
+    defaultValue && setSelect(defaultValue);
+  }, []);
 
   return (
     <>
@@ -70,15 +74,19 @@ export default function SelectSearch({showClear = false, label, items, onDataCha
               <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
                 <CommandGroup>
-                  {items.map(item => {
+                  {items.map((item) => {
                     return (
-                      <CommandItem key={item.value} className="cursor-pointer" onSelect={() => {
-                        setOpen(false)
-                        dataChange(item.value)
-                      }}>
+                      <CommandItem
+                        key={item.value}
+                        className="cursor-pointer"
+                        onSelect={() => {
+                          setOpen(false);
+                          dataChange(item.value);
+                        }}
+                      >
                         <span>{item.name}</span>
                       </CommandItem>
-                    )
+                    );
                   })}
                 </CommandGroup>
               </CommandList>
@@ -86,9 +94,13 @@ export default function SelectSearch({showClear = false, label, items, onDataCha
           </PopoverContent>
         </Popover>
 
-        {(select && showClear) && 
-        <X className="h-3 ml-2 cursor-pointer" onClick={() => setSelect(null)}></X>}
+        {select && showClear && (
+          <X
+            className="h-3 ml-2 cursor-pointer"
+            onClick={() => setSelect(null)}
+          ></X>
+        )}
       </div>
     </>
-  )
+  );
 }

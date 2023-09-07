@@ -1,6 +1,6 @@
-import Link from "next/link"
-import NextImage from "@/components/next-image"
-import FormLogin from "@/components/form/auth/form-login"
+import Link from "next/link";
+import NextImage from "@/components/next-image";
+import FormLogin from "@/components/form/auth/form-login";
 
 export default function RegisterPage() {
   return (
@@ -14,13 +14,16 @@ export default function RegisterPage() {
         </Link>
 
         <div className="relative hidden h-full flex-col bg-muted text-white dark:border-r lg:flex">
-          <NextImage src={'/images/bg-auth.png'} alt="bg-auth" width={1920} height={800} 
-          className="object-cover w-full min-h-100vh" 
-          classNames={
-            {
-              image: 'object-cover w-full min-h-[100vh]',
-            }
-          }></NextImage>
+          <NextImage
+            src={"/images/bg-auth.png"}
+            alt="bg-auth"
+            width={1920}
+            height={800}
+            className="object-cover w-full min-h-100vh"
+            classNames={{
+              image: "object-cover w-full min-h-[100vh]",
+            }}
+          ></NextImage>
         </div>
         <div className="lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
@@ -56,5 +59,5 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -6,6 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "prettier": "prettier --write --list-different .",
+    "lint:js": "eslint --ignore-path .gitignore .",
+    "lintfix": "npm run prettier && npm run lint:js -- --fix",
     "lint": "next lint"
   },
   "dependencies": {
@@ -29,12 +32,14 @@
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
     "autoprefixer": "10.4.15",
     "axios": "^1.4.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "eslint": "8.47.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "13.4.18",
     "lodash": "^4.17.21",
     "lucide-react": "^0.268.0",
@@ -59,6 +64,8 @@
   "devDependencies": {
     "@types/lodash": "^4.14.197",
     "@types/react-highlight-words": "^0.16.4",
+    "husky": "^8.0.3",
+    "prettier": "^2.5.1",
     "sass": "^1.66.0"
   }
 }

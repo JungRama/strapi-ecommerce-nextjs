@@ -1,7 +1,8 @@
 import { AlertCircleIcon } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
-export function ErrorCard(message: any | unknown) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function ErrorCard(message: any) {
   return (
     <Alert variant={"default"}>
       <div className="flex items-center">
@@ -12,5 +13,5 @@ export function ErrorCard(message: any | unknown) {
         </div>
       </div>
     </Alert>
-  )
+  );
 }

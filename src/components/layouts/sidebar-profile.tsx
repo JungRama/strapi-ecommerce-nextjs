@@ -1,19 +1,23 @@
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { signOut } from "next-auth/react"
+import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { signOut } from "next-auth/react";
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
-    href: string
-    title: string
-  }[]
+    href: string;
+    title: string;
+  }[];
 }
 
-export function SidebarProfile({ className, items, ...props }: SidebarNavProps) {
-  const pathname = usePathname()
+export function SidebarProfile({
+  className,
+  items,
+  ...props
+}: SidebarNavProps) {
+  const pathname = usePathname();
 
   return (
     <nav
@@ -38,10 +42,14 @@ export function SidebarProfile({ className, items, ...props }: SidebarNavProps) 
           {item.title}
         </Link>
       ))}
-      
-      <Button variant={'link'} className="justify-start" onClick={() => signOut({ callbackUrl: '/' })}>
+
+      <Button
+        variant={"link"}
+        className="justify-start"
+        onClick={() => signOut({ callbackUrl: "/" })}
+      >
         Logout
       </Button>
     </nav>
-  )
+  );
 }

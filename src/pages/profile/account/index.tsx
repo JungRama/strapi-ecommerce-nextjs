@@ -2,11 +2,7 @@ import ProfileLayout from "@/components/layouts/profile-layout";
 import FormChangePassword from "@/components/form/profile/form-change-password";
 import FormAccount from "@/components/form/profile/form-account";
 
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Key } from "lucide-react";
 
 export default function Transaction() {
@@ -22,14 +18,18 @@ export default function Transaction() {
             <Key className="h-4 w-4" />
             <AlertTitle>Want to change your password?</AlertTitle>
             <AlertDescription>
-              <FormChangePassword trigger={
-                <span className="underline cursor-pointer mr-1">Click here</span>
-              }></FormChangePassword>
-               to change your password. Be careful with this action.
+              <FormChangePassword
+                trigger={
+                  <span className="underline cursor-pointer mr-1">
+                    Click here
+                  </span>
+                }
+              ></FormChangePassword>
+              to change your password. Be careful with this action.
             </AlertDescription>
           </Alert>
         </div>
       </div>
     </ProfileLayout>
-  )
+  );
 }

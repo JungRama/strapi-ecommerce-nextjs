@@ -1,7 +1,7 @@
-import Image, { ImageProps } from 'next/image';
-import * as React from 'react';
+import Image, { ImageProps } from "next/image";
+import * as React from "react";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 type NextImageProps = {
   useSkeleton?: boolean;
@@ -12,7 +12,7 @@ type NextImageProps = {
   alt: string;
 } & (
   | { width: string | number; height: string | number }
-  | { layout: 'fill'; width?: string | number; height?: string | number }
+  | { layout: "fill"; width?: string | number; height?: string | number }
 ) &
   ImageProps;
 
@@ -32,18 +32,18 @@ export default function NextImage({
   ...rest
 }: NextImageProps) {
   const [status, setStatus] = React.useState(
-    useSkeleton ? 'loading' : 'complete'
+    useSkeleton ? "loading" : "complete"
   );
 
-  const [error, setError] = React.useState(false)
+  const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
-    setError(false)
-  }, [src])
-  
-  const widthIsSet = className?.includes('w-') ?? false;
+    setError(false);
+  }, [src]);
 
-  const fallbackImage = '/images/fallback-image.png'
+  const widthIsSet = className?.includes("w-") ?? false;
+
+  const fallbackImage = "/images/fallback-image.png";
 
   return (
     <figure
@@ -53,14 +53,14 @@ export default function NextImage({
       <Image
         className={cn(
           classNames?.image,
-          status === 'loading' && cn('animate-pulse', classNames?.blur)
+          status === "loading" && cn("animate-pulse", classNames?.blur)
         )}
         onError={() => setError(true)}
         src={error ? fallbackImage : src}
         width={width}
         height={height}
         alt={alt}
-        onLoadingComplete={() => setStatus('complete')}
+        onLoadingComplete={() => setStatus("complete")}
         {...rest}
       />
     </figure>
