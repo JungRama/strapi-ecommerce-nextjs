@@ -11,7 +11,7 @@ import { ErrorCard } from "../errors/error-card";
 import useBannersService from "@/services/banners";
 
 export default function HeroSlider() {
-  const { getBanners } = useBannersService()
+  const { getBanners } = useBannersService();
 
   const {
     data: banners,

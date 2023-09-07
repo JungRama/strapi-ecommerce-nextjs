@@ -2,14 +2,13 @@ import axios from "axios";
 import { BASE_URL } from "@/static/const";
 import { ReviewInterface } from "@/types/api/review";
 
-export default function useReviewsService(){
-
+export default function useReviewsService() {
   /**
-  * Retrieves the product reviews for a given slug.
-  *
-  * @param {string} slug - The slug of the product.
-  * @return {Promise<ReviewInterface[]>} - A promise that resolves to an array of product reviews.
-  */
+   * Retrieves the product reviews for a given slug.
+   *
+   * @param {string} slug - The slug of the product.
+   * @return {Promise<ReviewInterface[]>} - A promise that resolves to an array of product reviews.
+   */
   const getProductReviews = async (slug: string) => {
     const req = await axios.get(BASE_URL + "product-reviews/", {
       params: {
@@ -33,13 +32,15 @@ export default function useReviewsService(){
   };
 
   /**
-  * Retrieves the total number of product reviews and the average rating for a given product slug.
-  *
-  * @param {string} slug - The slug of the product.
-  * @return {Promise<{totalReviews: number, averageRating: number}>} - The total number of reviews and the average rating.
-  */
+   * Retrieves the total number of product reviews and the average rating for a given product slug.
+   *
+   * @param {string} slug - The slug of the product.
+   * @return {Promise<{totalReviews: number, averageRating: number}>} - The total number of reviews and the average rating.
+   */
   const getProductReviewCount = async (slug: string) => {
-    const req = await axios.get(BASE_URL + "product-reviews/" + slug + "/count");
+    const req = await axios.get(
+      BASE_URL + "product-reviews/" + slug + "/count"
+    );
 
     return req.data as {
       totalReviews: number;
@@ -47,10 +48,8 @@ export default function useReviewsService(){
     };
   };
 
-
   return {
     getProductReviews,
-    getProductReviewCount
-  }
+    getProductReviewCount,
+  };
 }
-

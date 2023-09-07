@@ -20,7 +20,7 @@ export default function BrandList({
   clearQuerySearch?: boolean;
 }) {
   const router = useRouter();
-  const { getBrands } = useBrandsService()
+  const { getBrands } = useBrandsService();
 
   const {
     data: brands,

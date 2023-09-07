@@ -9,31 +9,32 @@ import {
 } from "@/types/api/checkout";
 import { useSession } from "next-auth/react";
 
-export default function useCheckoutService(){
-  const session = useSession()
+export default function useCheckoutService() {
+  const session = useSession();
 
   /**
-  * Validates the given shipping information address.
-  *
-  * @param {ValidationShippingInformationSchema} data - The shipping information to be validated.
-  * @return {Promise<ValidateAddressInterface>} The validated address.
-  */
-  const validateAddress = async (
-    data: ValidationShippingInformationSchema
-  ) => {
-    const req = await axios.post(BASE_URL + "orders/checkout/validate-address", {
-      data,
-    });
+   * Validates the given shipping information address.
+   *
+   * @param {ValidationShippingInformationSchema} data - The shipping information to be validated.
+   * @return {Promise<ValidateAddressInterface>} The validated address.
+   */
+  const validateAddress = async (data: ValidationShippingInformationSchema) => {
+    const req = await axios.post(
+      BASE_URL + "orders/checkout/validate-address",
+      {
+        data,
+      }
+    );
 
     return req.data as ValidateAddressInterface;
   };
 
   /**
-  * Retrieves the shipping rate for an order checkout.
-  *
-  * @param {RequestShippingRateInterface} data - The data containing the address and parcel information.
-  * @return {Promise<RatesInterface>} The shipping rate for the order checkout.
-  */
+   * Retrieves the shipping rate for an order checkout.
+   *
+   * @param {RequestShippingRateInterface} data - The data containing the address and parcel information.
+   * @return {Promise<RatesInterface>} The shipping rate for the order checkout.
+   */
   const getShippingRate = async (data: RequestShippingRateInterface) => {
     const req = await axios.post(BASE_URL + "orders/checkout/shipping-rate", {
       address: {
@@ -46,22 +47,27 @@ export default function useCheckoutService(){
   };
 
   /**
-  * Sends a POST request to the server to create an order with the provided checkout data.
-  *
-  * @param {RequestCheckoutInterface} data - The data needed for the checkout process, including items, shipping, and customer details.
-  * @return {Promise<any>} A promise that resolves to the response data from the server.
-  */
+   * Sends a POST request to the server to create an order with the provided checkout data.
+   *
+   * @param {RequestCheckoutInterface} data - The data needed for the checkout process, including items, shipping, and customer details.
+   * @return {Promise<any>} A promise that resolves to the response data from the server.
+   */
   const checkoutItem = async (data: RequestCheckoutInterface) => {
-
-    const req = await axios.post(BASE_URL + "orders", {
-      items: data.items,
-      shipping: data.shipping,
-      customer: data.customer,
-    }, {
-      headers: {
-        Authorization: session?.data?.jwt ? 'Bearer ' + session?.data?.jwt : undefined
+    const req = await axios.post(
+      BASE_URL + "orders",
+      {
+        items: data.items,
+        shipping: data.shipping,
+        customer: data.customer,
+      },
+      {
+        headers: {
+          Authorization: session?.data?.jwt
+            ? "Bearer " + session?.data?.jwt
+            : undefined,
+        },
       }
-    });
+    );
 
     return req.data;
   };
@@ -69,6 +75,6 @@ export default function useCheckoutService(){
   return {
     validateAddress,
     getShippingRate,
-    checkoutItem
-  }
+    checkoutItem,
+  };
 }

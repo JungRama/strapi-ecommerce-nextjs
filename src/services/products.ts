@@ -4,14 +4,14 @@ import { FilterProductInterface, ProductInterface } from "@/types/api/product";
 import { CollectionInterface } from "@/types/api/collection";
 
 import _ from "lodash";
+import { MetaInterface } from "@/types/api/meta";
 
-export default function useProductsService(){
-
+export default function useProductsService() {
   /**
-  * Retrieves the featured sneakers from the API.
-  *
-  * @return {ProductInterface} The featured sneakers.
-  */
+   * Retrieves the featured sneakers from the API.
+   *
+   * @return {ProductInterface} The featured sneakers.
+   */
   const getFeaturedSneakers = async () => {
     const req = await axios.get(BASE_URL + "featured-sneaker", {
       params: {
@@ -29,10 +29,10 @@ export default function useProductsService(){
   };
 
   /**
-  * Retrieves collections from the server.
-  *
-  * @return {Promise<CollectionInterface[]>} An array of collections.
-  */
+   * Retrieves collections from the server.
+   *
+   * @return {Promise<CollectionInterface[]>} An array of collections.
+   */
   const getCollections = async () => {
     const req = await axios.get(BASE_URL + "collections", {
       params: {
@@ -47,10 +47,10 @@ export default function useProductsService(){
   };
 
   /**
-  * Retrieves the products from the API.
-  *
-  * @return {ProductInterface} The featured sneakers.
-  */
+   * Retrieves the products from the API.
+   *
+   * @return {ProductInterface} The featured sneakers.
+   */
   const getProducts = async (
     filter?: FilterProductInterface,
     page: string = "1"
@@ -125,16 +125,16 @@ export default function useProductsService(){
     // return data with unique id
     return {
       data: uniqueIds,
-      pagination: req.data?.meta?.pagination,
+      pagination: req.data?.meta?.pagination as MetaInterface,
     };
   };
 
   /**
-  * Retrieves the details of a product by its slug.
-  *
-  * @param {string} slug - The slug of the product.
-  * @return {ProductInterface} The product details.
-  */
+   * Retrieves the details of a product by its slug.
+   *
+   * @param {string} slug - The slug of the product.
+   * @return {ProductInterface} The product details.
+   */
   const getProductDetail = async (slug: string) => {
     const req = await axios.get(BASE_URL + "products/" + slug, {
       params: {
@@ -146,11 +146,11 @@ export default function useProductsService(){
   };
 
   /**
-  * Retrieves products from the API based on the given array of product IDs.
-  *
-  * @param {number[]} idProducts - An array of product IDs.
-  * @return {ProductInterface[]} - An array of product data.
-  */
+   * Retrieves products from the API based on the given array of product IDs.
+   *
+   * @param {number[]} idProducts - An array of product IDs.
+   * @return {ProductInterface[]} - An array of product data.
+   */
   const productInArrayId = async (idProducts: number[]) => {
     const req = await axios.get(BASE_URL + "products", {
       params: {
@@ -170,11 +170,11 @@ export default function useProductsService(){
   };
 
   /**
-  * Searches for products based on the given search string.
-  *
-  * @param {string} search - The search string to filter products by name.
-  * @return {ProductInterface[]} - An array of products that match the search query.
-  */
+   * Searches for products based on the given search string.
+   *
+   * @param {string} search - The search string to filter products by name.
+   * @return {ProductInterface[]} - An array of products that match the search query.
+   */
   const searchProduct = async (search: string) => {
     if (search.length <= 0) {
       return [] as ProductInterface[];
@@ -203,15 +203,15 @@ export default function useProductsService(){
     getProducts,
     getProductDetail,
     productInArrayId,
-    searchProduct
-  }
+    searchProduct,
+  };
 }
 
 /**
-* Retrieves the highest priced product from the API.
-*
-* @return {ProductInterface} The highest priced product.
-*/
+ * Retrieves the highest priced product from the API.
+ *
+ * @return {ProductInterface} The highest priced product.
+ */
 export const getHighestProductPrice = async () => {
   const req = await axios.get(BASE_URL + "products", {
     params: {

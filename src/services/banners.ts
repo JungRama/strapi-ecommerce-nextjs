@@ -2,13 +2,12 @@ import axios from "axios";
 import { BASE_URL } from "@/static/const";
 import { BannerInterface } from "@/types/api/banner";
 
-
-export default function useBannersService(){
+export default function useBannersService() {
   /**
-  * Retrieves the banners from the API.
-  *
-  * @return {BannerInterface[]} An array of banner objects.
-  */
+   * Retrieves the banners from the API.
+   *
+   * @return {BannerInterface[]} An array of banner objects.
+   */
   const getBanners = async () => {
     const req = await axios.get(BASE_URL + "banners", {
       params: {
@@ -20,6 +19,6 @@ export default function useBannersService(){
   };
 
   return {
-    getBanners
-  }
+    getBanners,
+  };
 }

@@ -11,7 +11,6 @@ import { ErrorCard } from "../errors/error-card";
 import useProductsService from "@/services/products";
 
 export default function CollectionList() {
-
   const { getCollections } = useProductsService();
 
   const {

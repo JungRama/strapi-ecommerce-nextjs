@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import NextImage from "@/components/next-image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { IMAGE_URL } from "@/static/const";
 
 interface propsTransactionInterface {
   order_id: string;
@@ -71,7 +72,7 @@ export default function DetailTransactionCard({
               <div className="flex items-center justify-between gap-5 flex-wrap">
                 <div className="flex gap-5">
                   <NextImage
-                    src={"/images/product.png"}
+                    src={IMAGE_URL + item.image}
                     className="rounded-md"
                     width={50}
                     height={50}

@@ -21,7 +21,7 @@ import useCheckoutService from "@/services/checkout";
 export default function FormCheckoutShippingInformation() {
   const router = useRouter();
   const { showError } = useErrorHandler();
-  const { validateAddress } = useCheckoutService()
+  const { validateAddress } = useCheckoutService();
 
   const {
     setCurrentForm,

@@ -27,7 +27,7 @@ export default function FormCheckoutShippingService({
   cartData: CartInterface[];
 }) {
   const { showError } = useErrorHandler();
-  const { getShippingRate, checkoutItem } = useCheckoutService()
+  const { getShippingRate, checkoutItem } = useCheckoutService();
 
   const {
     setCurrentForm,

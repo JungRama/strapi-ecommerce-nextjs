@@ -29,7 +29,6 @@ export default function ProductDetail() {
   const { getProductReviewCount } = useReviewsService();
   const { getProductDetail } = useProductsService();
 
-
   const { slug } = router.query;
 
   const { addToCart } = useCartService();

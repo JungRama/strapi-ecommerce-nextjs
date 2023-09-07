@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 export default function OrderDetailGuest() {
   const router = useRouter();
   const { showError } = useErrorHandler();
-  const { getTransactionWithSecret } = useTransactionService()
+  const { getTransactionWithSecret } = useTransactionService();
 
   const [validToView, setValidToView] = useState(false);
   const [dataTransaction, setDataTransaction] = useState<OrderInterface | null>(

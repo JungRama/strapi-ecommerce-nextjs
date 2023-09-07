@@ -27,7 +27,6 @@ export default function ProductCollectionFilter() {
   const { query } = router;
   const { getCollections } = useProductsService();
 
-
   const [collectionSelect, setCollectionSelect] = useState<string | null>(null);
 
   const { data: collections, isLoading } = useQuery({

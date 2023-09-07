@@ -35,7 +35,7 @@ export default function FormRegister() {
     ValidationFormRegisterSchema
   > = async (data) => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       await signUpWithCredential({
         name: data.name,
         email: data.email,
@@ -45,10 +45,10 @@ export default function FormRegister() {
       resetFormRegister();
 
       setShowConfirmEmailAlert(true);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
       handleRejection(error);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 

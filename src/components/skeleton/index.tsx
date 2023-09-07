@@ -33,6 +33,15 @@ export function SkeletonCollectionList() {
   );
 }
 
+export function SkeletonTransactionList() {
+  return (
+    <>
+      <Skeleton className="h-[200px] w-full" />
+    </>
+  );
+}
+
+
 export function SkeletonProductDetail() {
   return (
     <div className="container mx-auto my-20">

@@ -36,7 +36,7 @@ export default function FormLogin() {
     ValidationFormLoginSchema
   > = async (data) => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
 
       const result = await signIn("credentials", {
         redirect: false,
@@ -45,7 +45,7 @@ export default function FormLogin() {
       });
 
       if (result && !result.ok) {
-        setIsLoading(false)
+        setIsLoading(false);
         throw result.error;
       }
 
@@ -55,7 +55,7 @@ export default function FormLogin() {
         router.push("/profile");
       }
     } catch (error) {
-      setIsLoading(false)
+      setIsLoading(false);
       handleRejection(error);
     }
   };

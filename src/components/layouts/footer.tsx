@@ -1,22 +1,9 @@
-import NextImage from "../next-image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
     <footer className="bg-slate-100 lg:grid lg:grid-cols-5">
-      <div className="relative block h-32 lg:col-span-2 lg:h-full">
-        <NextImage
-          src={"/images/bg-footer.png"}
-          width={1500}
-          height={1100}
-          className="inset-0 h-full w-full object-cover"
-          classNames={{
-            image: "object-cover h-[100%]",
-          }}
-          alt="bg-footer"
-        ></NextImage>
-      </div>
-
-      <div className="px-4 py-16 sm:px-6 lg:col-span-3 lg:px-8">
+      <div className="px-4 py-16 sm:px-6 lg:col-span-5 lg:px-8">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div>
             <p>
@@ -40,84 +27,75 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <p className="font-medium text-gray-900">Services</p>
+              <p className="font-medium text-gray-900">Link</p>
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/product"
                     className="text-gray-700 transition hover:opacity-75"
                   >
-                    1on1 Coaching
-                  </a>
+                    Explore Sneakers
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/login"
                     className="text-gray-700 transition hover:opacity-75"
                   >
-                    Company Review
-                  </a>
+                    Login
+                  </Link>
                 </li>
 
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="/register"
                     className="text-gray-700 transition hover:opacity-75"
                   >
-                    Accounts Review
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    HR Consulting
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    SEO Optimisation
-                  </a>
+                    Register
+                  </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <p className="font-medium text-gray-900">Company</p>
+              <p className="font-medium text-gray-900">Developer</p>
 
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
                   <a
-                    href="#"
+                    href="https://jungrama.com/"
                     className="text-gray-700 transition hover:opacity-75"
                   >
-                    About
+                    Jung Rama
                   </a>
                 </li>
 
                 <li>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/in/jungrama/"
                     className="text-gray-700 transition hover:opacity-75"
                   >
-                    Meet the Team
+                    LinkedIn
                   </a>
                 </li>
 
                 <li>
                   <a
-                    href="#"
+                    href="https://github.com/JungRama"
                     className="text-gray-700 transition hover:opacity-75"
                   >
-                    Accounts Review
+                    Github
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://dribbble.com/jungrama"
+                    className="text-gray-700 transition hover:opacity-75"
+                  >
+                    Dribbble
                   </a>
                 </li>
               </ul>
@@ -157,7 +135,7 @@ export default function Footer() {
             </ul>
 
             <p className="mt-8 text-xs text-gray-500 sm:mt-0">
-              &copy; 2022. Company Name. All rights reserved.
+              &copy; {new Date().getFullYear()}. Sneakpeaks. Develop by <a href="https://jungrama.com/" target="_blank" rel="noopener noreferrer">Jung Rama</a>.
             </p>
           </div>
         </div>

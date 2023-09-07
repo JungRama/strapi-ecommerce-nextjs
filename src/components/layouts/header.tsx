@@ -27,7 +27,7 @@ import useBrandsService from "@/services/brands";
 import useCategoriesService from "@/services/categories";
 
 function BrandHeader() {
-  const { getBrands } = useBrandsService()
+  const { getBrands } = useBrandsService();
 
   const {
     data: brands,
@@ -75,7 +75,7 @@ function BrandHeader() {
 }
 
 function CategoryHeader() {
-  const { getCategories } = useCategoriesService()
+  const { getCategories } = useCategoriesService();
 
   const {
     data: categories,
@@ -123,7 +123,7 @@ function CategoryHeader() {
 
 export default function Header() {
   const { cartItem } = useStoreCart();
-  const session = useSession()
+  const session = useSession();
 
   return (
     <>
@@ -189,7 +189,7 @@ export default function Header() {
                 ></MenuSideBarMobile>
               </div>
 
-              { session.status === 'unauthenticated' && 
+              {session.status === "unauthenticated" && (
                 <Button size={"sm"} asChild className="hidden md:flex">
                   <Link href="/login">
                     <span className="md:visible lg:hidden">
@@ -198,9 +198,9 @@ export default function Header() {
                     <span className="hidden lg:block">Login or Register</span>
                   </Link>
                 </Button>
-              } 
+              )}
 
-              { session.status === 'authenticated' && 
+              {session.status === "authenticated" && (
                 <Button size={"sm"} asChild className="hidden md:flex">
                   <Link href="/profile">
                     <span>
@@ -209,9 +209,7 @@ export default function Header() {
                     <span className="hidden lg:block ml-1">My Profile</span>
                   </Link>
                 </Button>
-              } 
-
-
+              )}
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "@/static/const";
 import { BrandInterface } from "@/types/api/brand";
 
-export default function useBrandsService(){
+export default function useBrandsService() {
   /**
    * Retrieves a list of brands from the server.
    *
@@ -14,12 +14,11 @@ export default function useBrandsService(){
         populate: "logo",
       },
     });
-  
+
     return req.data.data as BrandInterface[];
   };
 
   return {
-    getBrands
-  }
+    getBrands,
+  };
 }
-
