@@ -1,6 +1,6 @@
 import { useToast } from "@/components/ui/use-toast";
 
-const UseErrorHandler = () => {
+export default function useErrorHandler(){
   const { toast } = useToast();
 
   const showError = (error: string) => {
@@ -34,5 +34,3 @@ const UseErrorHandler = () => {
     handleRejection,
   };
 };
-
-export default UseErrorHandler;

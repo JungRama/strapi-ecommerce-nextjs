@@ -2,7 +2,7 @@ import CartItem from "@/components/cart/cart-item";
 import FormCheckoutShippingInformation from "@/components/form/checkout/form-checkout-shipping-information";
 import FormCheckoutShippingService from "@/components/form/checkout/form-checkout-shipping-service";
 import { Card, CardContent } from "@/components/ui/card";
-import { useCart } from "@/services/cart";
+import { useCartService } from "@/services/cart";
 import { currencyFormat } from "@/lib/use-currency";
 import { useStoreCart } from "@/store/store-cart";
 import { useStoreCheckout } from "@/store/store-checkout";
@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 export default function CheckoutPage() {
   const { currentForm, formShippingService } = useStoreCheckout();
 
-  const { getCart } = useCart();
+  const { getCart } = useCartService();
   const { cartItem } = useStoreCart();
 
   // Why we need to mapping this cartItem?

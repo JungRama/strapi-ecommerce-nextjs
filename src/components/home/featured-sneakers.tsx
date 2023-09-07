@@ -1,10 +1,12 @@
 import ProductCard from "@/components/product-list/product-card";
-import { getFeaturedSneakers } from "@/services/products";
 import { useQuery } from "@tanstack/react-query";
 import { SkeletonProduct } from "../skeleton";
 import { ErrorCard } from "../errors/error-card";
+import useProductsService from "@/services/products";
 
 export default function FeaturedSneakers() {
+  const { getFeaturedSneakers } = useProductsService();
+
   const {
     data: products,
     isLoading,

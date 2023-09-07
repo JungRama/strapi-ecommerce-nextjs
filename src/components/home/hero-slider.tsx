@@ -4,13 +4,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 import { useQuery } from "@tanstack/react-query";
-import { getBanners } from "@/services/banners";
 import { SkeletonBanner } from "../skeleton";
 import { IMAGE_URL } from "@/static/const";
 import Link from "next/link";
 import { ErrorCard } from "../errors/error-card";
+import useBannersService from "@/services/banners";
 
 export default function HeroSlider() {
+  const { getBanners } = useBannersService()
+
   const {
     data: banners,
     isLoading,

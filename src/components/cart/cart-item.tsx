@@ -1,4 +1,4 @@
-import { useCart } from "@/services/cart";
+import { useCartService } from "@/services/cart";
 import NextImage from "../next-image";
 import { IMAGE_URL } from "@/static/const";
 import { currencyFormat } from "@/lib/use-currency";
@@ -20,7 +20,7 @@ export default function CartItem({
   showAction?: boolean;
   cartItem: CartItem;
 }) {
-  const { updateQuantity, removeItemFromCart } = useCart();
+  const { updateQuantity, removeItemFromCart } = useCartService();
 
   return (
     <div className="flex">

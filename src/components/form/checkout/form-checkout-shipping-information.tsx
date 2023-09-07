@@ -7,20 +7,21 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import {
   ValidationShippingInformation,
   ValidationShippingInformationSchema,
-} from "@/components/validations/shipping-information-validation";
+} from "@/validations/shipping-information-validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { countryList } from "@/static/country";
 import { useStoreCheckout } from "@/store/store-checkout";
 import { useRouter } from "next/router";
 import { useMutation } from "@tanstack/react-query";
-import { validateAddress } from "@/services/checkout";
-import UseErrorHandler from "@/lib/use-error-handler";
+import useErrorHandler from "@/hooks/useErrorHandler";
 import Spinner from "@/components/ui/spinner";
+import useCheckoutService from "@/services/checkout";
 
 export default function FormCheckoutShippingInformation() {
   const router = useRouter();
-  const { showError } = UseErrorHandler();
+  const { showError } = useErrorHandler();
+  const { validateAddress } = useCheckoutService()
 
   const {
     setCurrentForm,

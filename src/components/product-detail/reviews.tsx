@@ -1,11 +1,13 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { getProductReviews } from "@/services/reviews";
 import { ErrorCard } from "../errors/error-card";
 import { SkeletonProductReview } from "../skeleton";
+import useReviewsService from "@/services/reviews";
 
 export default function Reviews({ slug }: { slug: string }) {
+  const { getProductReviews } = useReviewsService();
+
   const {
     data: reviews,
     isLoading,

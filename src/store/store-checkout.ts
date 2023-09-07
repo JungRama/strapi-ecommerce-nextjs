@@ -1,23 +1,23 @@
 import { create } from "zustand";
-import { ValidationShippingInformationSchema } from "@/components/validations/shipping-information-validation";
+import { ValidationShippingInformationSchema } from "@/validations/shipping-information-validation";
 
 type CheckoutStateInterface = {
   currentForm: string;
   setCurrentForm: (value: string) => void;
-  formShippingInformation: ValidationShippingInformationSchema
+  formShippingInformation: ValidationShippingInformationSchema;
   setFormShippingInformation: (
     value: ValidationShippingInformationSchema
-  ) => void
+  ) => void;
   formShippingService: {
     id: string | null;
     name: string | null;
     price: string | null;
-  }
+  };
   setFormShippingService: (value: {
     id: string | null;
     name: string | null;
     price: string | null;
-  }) => void
+  }) => void;
 };
 
 // Creates a custom Zustand store for managing the checkout state.

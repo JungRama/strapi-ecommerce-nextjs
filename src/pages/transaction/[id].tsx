@@ -3,8 +3,8 @@ import DetailTransactionCard from "@/components/transaction/detail-transaction-c
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Spinner from "@/components/ui/spinner";
-import { getTransactionWithSecret } from "@/services/transaction";
-import UseErrorHandler from "@/lib/use-error-handler";
+import useErrorHandler from "@/hooks/useErrorHandler";
+import useTransactionService from "@/services/transaction";
 import { OrderInterface } from "@/types/api/order";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
@@ -12,7 +12,8 @@ import { useEffect, useState } from "react";
 
 export default function OrderDetailGuest() {
   const router = useRouter();
-  const { showError } = UseErrorHandler();
+  const { showError } = useErrorHandler();
+  const { getTransactionWithSecret } = useTransactionService()
 
   const [validToView, setValidToView] = useState(false);
   const [dataTransaction, setDataTransaction] = useState<OrderInterface | null>(

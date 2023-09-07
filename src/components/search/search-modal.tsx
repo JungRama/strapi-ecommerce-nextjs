@@ -8,18 +8,20 @@ import {
 import Link from "next/link";
 import NextImage from "../next-image";
 import { useQuery } from "@tanstack/react-query";
-import { searchProduct } from "@/services/products";
 import { useEffect, useState } from "react";
-import useDebounce from "@/lib/use-debounce";
+import useDebounce from "@/hooks/useDebounce";
 import { IMAGE_URL } from "@/static/const";
 import { SearchIcon } from "lucide-react";
 import Highlighter from "react-highlight-words";
+import useProductsService from "@/services/products";
 
 export interface propsInterface {
   trigger: JSX.Element;
 }
 
 export default function SearchModal(props: propsInterface) {
+  const { searchProduct } = useProductsService();
+
   const [openModal, setOpenModal] = useState(false);
   const [search, setSearch] = useState("");
   const [isTyping, setIsTyping] = useState(false);

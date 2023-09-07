@@ -15,16 +15,18 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-import { getCollections } from "@/services/products";
 import { useQuery } from "@tanstack/react-query";
 
 import { ChevronsUpDown, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
+import useProductsService from "@/services/products";
 
 export default function ProductCollectionFilter() {
   const router = useRouter();
   const { query } = router;
+  const { getCollections } = useProductsService();
+
 
   const [collectionSelect, setCollectionSelect] = useState<string | null>(null);
 

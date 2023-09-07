@@ -6,11 +6,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 import { useQuery } from "@tanstack/react-query";
-import { getBrands } from "@/services/brands";
 import { IMAGE_URL } from "@/static/const";
 import { ErrorCard } from "../errors/error-card";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/router";
+import useBrandsService from "@/services/brands";
 
 export default function BrandList({
   activeBrand,
@@ -20,6 +20,7 @@ export default function BrandList({
   clearQuerySearch?: boolean;
 }) {
   const router = useRouter();
+  const { getBrands } = useBrandsService()
 
   const {
     data: brands,

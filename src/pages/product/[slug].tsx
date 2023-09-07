@@ -13,22 +13,26 @@ import ImageListProduct from "@/components/product-detail/image-list";
 
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { getProductDetail } from "@/services/products";
 import { SkeletonProductDetail } from "@/components/skeleton";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { useCart } from "@/services/cart";
+import { useCartService } from "@/services/cart";
 import { ErrorCard } from "@/components/errors/error-card";
 import { useStoreCart } from "@/store/store-cart";
 import Reviews from "@/components/product-detail/reviews";
-import { getProductReviewCount } from "@/services/reviews";
+import useReviewsService from "@/services/reviews";
+import useProductsService from "@/services/products";
 
 export default function ProductDetail() {
   const cartStore = useStoreCart();
   const router = useRouter();
+  const { getProductReviewCount } = useReviewsService();
+  const { getProductDetail } = useProductsService();
+
+
   const { slug } = router.query;
 
-  const { addToCart } = useCart();
+  const { addToCart } = useCartService();
 
   const {
     data: product,

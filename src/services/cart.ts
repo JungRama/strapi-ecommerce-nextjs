@@ -1,7 +1,7 @@
-import UseErrorHandler from "@/lib/use-error-handler";
-import { productInArrayId } from "./products";
+import useErrorHandler from "@/hooks/useErrorHandler";
 import { useStoreCart } from "@/store/store-cart";
 import { CartInterface } from "@/types/api/cart";
+import useProductsService from "./products";
 
 export interface cartLocalStorage {
   productId: number | null;
@@ -9,9 +9,10 @@ export interface cartLocalStorage {
   qty: number | null;
 }
 
-export const useCart = () => {
-  const { showError } = UseErrorHandler();
+export const useCartService = () => {
+  const { showError } = useErrorHandler();
   const { setCartItem } = useStoreCart();
+  const { productInArrayId } = useProductsService();
 
   /**
    * Adds a product to the cart.
@@ -104,13 +105,13 @@ export const useCart = () => {
   };
 
   /**
-  * Retrieves the cart data from local storage and fetches the corresponding product data from the API.
-  * Filters the cart data based on the availability of product variants in the API.
-  * Updates the cart in local storage and sets the filtered cart data in the component state.
-  * Returns an array of cart items with the required product and variant information.
-  *
-  * @return {CartInterface[]} An array of cart items with the required product and variant information.
-  */
+   * Retrieves the cart data from local storage and fetches the corresponding product data from the API.
+   * Filters the cart data based on the availability of product variants in the API.
+   * Updates the cart in local storage and sets the filtered cart data in the component state.
+   * Returns an array of cart items with the required product and variant information.
+   *
+   * @return {CartInterface[]} An array of cart items with the required product and variant information.
+   */
   const getCart = async () => {
     const cartData = getCartFromLocalStorage();
 
@@ -182,7 +183,7 @@ export const useCart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     setCartItem(updatedCart);
   };
-  
+
   /**
    * Clears the cart by removing the "cart" key from localStorage and setting the cart items to an empty array.
    *

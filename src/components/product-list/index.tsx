@@ -1,5 +1,4 @@
 import ProductCard from "@/components/product-list/product-card";
-import { getProducts } from "@/services/products";
 import { SkeletonProduct } from "@/components/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorCard } from "@/components/errors/error-card";
@@ -7,9 +6,11 @@ import { useRouter } from "next/router";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import ReactPaginate from "react-paginate";
 import { buttonVariants } from "../ui/button";
+import useProductsService from "@/services/products";
 
 export default function ProductListItem() {
   const router = useRouter();
+  const { getProducts } = useProductsService();
 
   const { brand, category, collection, minPrice, maxPrice, sort, page } =
     router.query;

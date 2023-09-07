@@ -8,15 +8,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ValidationFormRegister,
   ValidationFormRegisterSchema,
-} from "@/components/validations/auth-validation";
+} from "@/validations/auth-validation";
 
-import UseErrorHandler from "@/lib/use-error-handler";
+import useErrorHandler from "@/hooks/useErrorHandler";
 import { signUpWithCredential } from "@/services/auth";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import GoogleAuthButton from "./google-auth-button";
 
 export default function FormRegister() {
-  const { handleRejection } = UseErrorHandler();
+  const { handleRejection } = useErrorHandler();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -33,6 +35,7 @@ export default function FormRegister() {
     ValidationFormRegisterSchema
   > = async (data) => {
     try {
+      setIsLoading(true)
       await signUpWithCredential({
         name: data.name,
         email: data.email,
@@ -42,8 +45,10 @@ export default function FormRegister() {
       resetFormRegister();
 
       setShowConfirmEmailAlert(true);
+      setIsLoading(false)
     } catch (error) {
       handleRejection(error);
+      setIsLoading(false)
     }
   };
 
@@ -129,8 +134,8 @@ export default function FormRegister() {
           )}
         </div>
 
-        <Button className="w-full" type="submit">
-          Register
+        <Button className="w-full" type="submit" disabled={isLoading}>
+          {isLoading ? "Please Wait..." : "Register"}
         </Button>
       </form>
 

@@ -7,19 +7,22 @@ import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import UseErrorHandler from "@/lib/use-error-handler";
+import useErrorHandler from "@/hooks/useErrorHandler";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ValidationFormLogin,
   ValidationFormLoginSchema,
-} from "@/components/validations/auth-validation";
+} from "@/validations/auth-validation";
 import { useRouter } from "next/router";
 import GoogleAuthButton from "./google-auth-button";
+import { useState } from "react";
 
 export default function FormLogin() {
   const router = useRouter();
-  const { handleRejection } = UseErrorHandler();
+  const { handleRejection } = useErrorHandler();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -33,6 +36,8 @@ export default function FormLogin() {
     ValidationFormLoginSchema
   > = async (data) => {
     try {
+      setIsLoading(true)
+
       const result = await signIn("credentials", {
         redirect: false,
         email: data.email,
@@ -40,6 +45,7 @@ export default function FormLogin() {
       });
 
       if (result && !result.ok) {
+        setIsLoading(false)
         throw result.error;
       }
 
@@ -49,6 +55,7 @@ export default function FormLogin() {
         router.push("/profile");
       }
     } catch (error) {
+      setIsLoading(false)
       handleRejection(error);
     }
   };
@@ -93,8 +100,8 @@ export default function FormLogin() {
           <Link href={"/forgot-password"}>Forgot Password? Click Here</Link>
         </div>
 
-        <Button type="submit" className="w-full my-3">
-          Login
+        <Button type="submit" className="w-full my-3" disabled={isLoading}>
+          {isLoading ? "Please Wait..." : "Login"}
         </Button>
       </form>
 

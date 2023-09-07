@@ -1,4 +1,4 @@
-import HeaderTopPromo from "@/components/layouts/header-top-promo";
+// import HeaderTopPromo from "@/components/layouts/header-top-promo";
 import Link from "next/link";
 
 import { ChevronRight, Menu, ShoppingBasket, User2 } from "lucide-react";
@@ -18,14 +18,17 @@ import SearchInput from "../search";
 import MenuSideBarMobile from "./menu-sidebar-mobile";
 
 import { useQuery } from "@tanstack/react-query";
-import { getBrands } from "@/services/brands";
 import { SkeletonBrand, SkeletonCategory } from "../skeleton";
 import { ErrorCard } from "../errors/error-card";
 import { IMAGE_URL } from "@/static/const";
-import { getCategories } from "@/services/categories";
 import { useStoreCart } from "@/store/store-cart";
+import { useSession } from "next-auth/react";
+import useBrandsService from "@/services/brands";
+import useCategoriesService from "@/services/categories";
 
 function BrandHeader() {
+  const { getBrands } = useBrandsService()
+
   const {
     data: brands,
     isLoading,
@@ -72,6 +75,8 @@ function BrandHeader() {
 }
 
 function CategoryHeader() {
+  const { getCategories } = useCategoriesService()
+
   const {
     data: categories,
     isLoading,
@@ -118,10 +123,11 @@ function CategoryHeader() {
 
 export default function Header() {
   const { cartItem } = useStoreCart();
+  const session = useSession()
 
   return (
     <>
-      <HeaderTopPromo></HeaderTopPromo>
+      {/* <HeaderTopPromo></HeaderTopPromo> */}
       <div className="border-b border-[#DEDEDE]">
         <div className="container-fluid py-6">
           <div className="flex justify-between">
@@ -183,14 +189,29 @@ export default function Header() {
                 ></MenuSideBarMobile>
               </div>
 
-              <Button size={"sm"} asChild className="hidden md:flex">
-                <Link href="/login">
-                  <span className="md:visible lg:hidden">
-                    <User2></User2>
-                  </span>
-                  <span className="hidden lg:block">Login or Register</span>
-                </Link>
-              </Button>
+              { session.status === 'unauthenticated' && 
+                <Button size={"sm"} asChild className="hidden md:flex">
+                  <Link href="/login">
+                    <span className="md:visible lg:hidden">
+                      <User2></User2>
+                    </span>
+                    <span className="hidden lg:block">Login or Register</span>
+                  </Link>
+                </Button>
+              } 
+
+              { session.status === 'authenticated' && 
+                <Button size={"sm"} asChild className="hidden md:flex">
+                  <Link href="/profile">
+                    <span>
+                      <User2 className="h-4"></User2>
+                    </span>
+                    <span className="hidden lg:block ml-1">My Profile</span>
+                  </Link>
+                </Button>
+              } 
+
+
             </div>
           </div>
         </div>

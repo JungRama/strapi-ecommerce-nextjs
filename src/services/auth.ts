@@ -9,12 +9,12 @@ import axios from "axios";
 
 export async function signInWithCredential(req: RequestSignInCredential) {
   try {
-    const response: ResponseAuth = await axios.post(`${BASE_URL}auth/local`, {
+    const response = await axios.post(`${BASE_URL}auth/local`, {
       identifier: req.email,
       password: req.password,
     });
 
-    return response;
+    return response.data as ResponseAuth;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error?.response?.data?.error) {

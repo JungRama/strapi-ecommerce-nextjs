@@ -1,12 +1,11 @@
 import { ErrorCard } from "@/components/errors/error-card";
 import { SkeletonShipping } from "@/components/skeleton";
 import { Button } from "@/components/ui/button";
-
 import { Card, CardContent } from "@/components/ui/card";
 import Spinner from "@/components/ui/spinner";
-import { checkoutItem, getShippingRate } from "@/services/checkout";
+import useErrorHandler from "@/hooks/useErrorHandler";
+import useCheckoutService from "@/services/checkout";
 import { IMAGE_URL } from "@/static/const";
-import UseErrorHandler from "@/lib/use-error-handler";
 import { countryList } from "@/static/country";
 import { useStoreCheckout } from "@/store/store-checkout";
 import { CartInterface } from "@/types/api/cart";
@@ -27,7 +26,8 @@ export default function FormCheckoutShippingService({
   };
   cartData: CartInterface[];
 }) {
-  const { showError } = UseErrorHandler();
+  const { showError } = useErrorHandler();
+  const { getShippingRate, checkoutItem } = useCheckoutService()
 
   const {
     setCurrentForm,
@@ -37,7 +37,7 @@ export default function FormCheckoutShippingService({
   } = useStoreCheckout();
 
   const [shippingRate, setShippingRate] = useState<RatesInterface | null>(null);
-  
+
   /**
    * Returns the name of a country based on its code.
    *
@@ -121,7 +121,6 @@ export default function FormCheckoutShippingService({
     });
   };
 
-  
   /**
    * Renders a list of shipping rates.
    *

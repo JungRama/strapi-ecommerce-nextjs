@@ -16,14 +16,14 @@ import { useStoreCart } from "@/store/store-cart";
 import { useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
-import { useCart } from "@/services/cart";
+import { useCartService } from "@/services/cart";
 
 export interface propsInterface {
   trigger: JSX.Element;
 }
 
 export default function Cart(props: propsInterface) {
-  const { getCart } = useCart();
+  const { getCart } = useCartService();
   const { setCartItem, isCartOpen, setIsCartOpen, cartItem } = useStoreCart();
 
   // Why we need to mapping this cartItem?

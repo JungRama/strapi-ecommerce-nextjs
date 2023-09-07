@@ -5,12 +5,15 @@ import "swiper/css";
 
 import Link from "next/link";
 import { SkeletonCollectionList } from "../skeleton";
-import { getCollections } from "@/services/products";
 import { useQuery } from "@tanstack/react-query";
 import { IMAGE_URL } from "@/static/const";
 import { ErrorCard } from "../errors/error-card";
+import useProductsService from "@/services/products";
 
 export default function CollectionList() {
+
+  const { getCollections } = useProductsService();
+
   const {
     data: collections,
     isLoading,

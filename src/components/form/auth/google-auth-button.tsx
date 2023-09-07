@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
-import UseErrorHandler from "@/lib/use-error-handler";
+import useErrorHandler from "@/hooks/useErrorHandler";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 
 export default function GoogleAuthButton() {
   const router = useRouter();
-  const { handleRejection } = UseErrorHandler();
+  const { handleRejection } = useErrorHandler();
 
   const onLoginWithGoogle = async (e: MouseEvent) => {
     try {

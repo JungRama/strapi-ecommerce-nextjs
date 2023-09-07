@@ -1,4 +1,4 @@
-import { ValidationShippingInformationSchema } from "@/components/validations/shipping-information-validation";
+import { ValidationShippingInformationSchema } from "@/validations/shipping-information-validation";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ValidateAddressInterface {

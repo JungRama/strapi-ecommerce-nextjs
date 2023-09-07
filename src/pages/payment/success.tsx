@@ -1,12 +1,12 @@
 import LayoutMain from "@/components/layouts";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useCart } from "@/services/cart";
+import { useCartService } from "@/services/cart";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export default function PaymentSuccess() {
-  const { clearCart } = useCart();
+  const { clearCart } = useCartService();
   const router = useRouter();
 
   useEffect(() => {
