@@ -4,6 +4,11 @@
 
 Welcome to the Starter eCommerce Integration for NextJS and Strapi! This project is designed to help you kickstart your eCommerce website development by integrating the Next.js framework with the Strapi headless CMS. With this starter, you can build a fast, modern, and fully customizable eCommerce site tailored to your specific needs.
 
+## Backend / CMS
+
+The backend is using Strapi, a flexible and open-source content management system, serving as the backend for this eCommerce content.
+Checkout the repository [here](https://github.com/JungRama/strapi-ecommerce-cms)
+
 ## Features
 
 - **Next.js Framework:** A powerful and versatile React framework for building server-rendered and static web applications.
@@ -19,8 +24,15 @@ Welcome to the Starter eCommerce Integration for NextJS and Strapi! This project
 ## Screenshoot
 
 ![Screenshoot](/public/github/screenshoot-1.png)
-![Screenshoot](/public/github/screenshoot-2.png)
-![Screenshoot](/public/github/screenshoot-3.png)
+
+<details>
+  <summary>Checkout Page Screenshoot</summary>
+  ![Screenshoot](/public/github/screenshoot-2.png)
+</details>
+<details>
+  <summary>Order Page Screenshoot</summary>
+  ![Screenshoot](/public/github/screenshoot-3.png)
+</details>
 
 ## Getting Started
 

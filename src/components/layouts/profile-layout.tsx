@@ -1,7 +1,7 @@
 import LayoutMain from "@/components/layouts";
 import { SidebarProfile } from "@/components/layouts/sidebar-profile";
 import { Separator } from "@/components/ui/separator";
-  
+
 const sidebarNavItems = [
   // {
   //   title: "Profile",
