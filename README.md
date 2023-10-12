@@ -27,11 +27,14 @@ Checkout the repository [here](https://github.com/JungRama/strapi-ecommerce-cms)
 
 <details>
   <summary>Checkout Page Screenshoot</summary>
+  
   ![Screenshoot](/public/github/screenshoot-2.png)
 </details>
 <details>
   <summary>Order Page Screenshoot</summary>
-  ![Screenshoot](/public/github/screenshoot-3.png)
+
+![Screenshoot](/public/github/screenshoot-3.png)
+
 </details>
 
 ## Getting Started
