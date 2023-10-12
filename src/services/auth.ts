@@ -27,7 +27,9 @@ export async function signInWithCredential(req: RequestSignInCredential) {
 
 export async function signInWithProviders(req: RequestSignInWithProviders) {
   try {
-    const response: ResponseAuth = await axios.get(
+    const response: {
+      data: ResponseAuth;
+    } = await axios.get(
       `${BASE_URL}auth/${req?.provider}/callback?access_token=${req?.access_token}`
     );
 

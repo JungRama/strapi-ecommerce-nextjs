@@ -135,7 +135,15 @@ export default function Footer() {
             </ul>
 
             <p className="mt-8 text-xs text-gray-500 sm:mt-0">
-              &copy; {new Date().getFullYear()}. Sneakpeaks. Develop by <a href="https://jungrama.com/" target="_blank" rel="noopener noreferrer">Jung Rama</a>.
+              &copy; {new Date().getFullYear()}. Sneakpeaks. Develop by{" "}
+              <a
+                href="https://jungrama.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Jung Rama
+              </a>
+              .
             </p>
           </div>
         </div>

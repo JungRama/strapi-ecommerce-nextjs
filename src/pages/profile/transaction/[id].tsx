@@ -7,33 +7,32 @@ import { useQuery } from "@tanstack/react-query";
 import { ErrorCard } from "@/components/errors/error-card";
 export default function Transaction() {
   const { getMyTransactionById } = useTransactionService();
-  const router = useRouter()
-  const session = useSession()
-  
+  const router = useRouter();
+  const session = useSession();
+
   const {
     data: dataTransaction,
     isLoading,
     isError,
     error,
-    refetch
+    refetch,
   } = useQuery({
     queryKey: ["my-transaction", router.query.id],
     queryFn: async () => {
       return await getMyTransactionById(router.query.id as string);
     },
-    enabled: !!session.data && !!router.query.id
+    enabled: !!session.data && !!router.query.id,
   });
 
-  if(isLoading) return '<Spinner />'
-  if (isError) return <ErrorCard message={(error as Error).message}></ErrorCard>;
+  if (isLoading) return "<Spinner />";
+  if (isError)
+    return <ErrorCard message={(error as Error).message}></ErrorCard>;
 
   return (
     <ProfileLayout>
       <></>
       <DetailTransactionCard
-        refreshGetDataTransaction={() =>
-          refetch()
-        }
+        refreshGetDataTransaction={() => refetch()}
         dataTransaction={{
           order_id: dataTransaction?.order_id ?? "",
           date: dataTransaction?.createdAt ?? "",
@@ -48,8 +47,7 @@ export default function Transaction() {
           }) as [],
           customer: {
             name: dataTransaction?.customer_contact?.name ?? "",
-            phone_number:
-              dataTransaction?.customer_contact?.phone_number ?? "",
+            phone_number: dataTransaction?.customer_contact?.phone_number ?? "",
             email: dataTransaction?.customer_contact?.email ?? "",
             address: dataTransaction?.customer_contact?.address ?? "",
             state: dataTransaction?.customer_contact?.state ?? "",

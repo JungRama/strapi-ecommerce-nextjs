@@ -4,7 +4,8 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/toaster";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Head from "next/head";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -15,8 +16,18 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <Toaster />
+        <Head>
+          <title>
+            Sneakpeaks - Starter ecommerce Integration for NextJS and Strapi
+          </title>
+          <meta
+            name="description"
+            content="Starter ecommerce Integration for NextJS and Strapi, Including payment with Stripe and tracking parcel with easypost "
+          />
+          <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+        </Head>
         <Component {...pageProps} />
       </QueryClientProvider>
     </SessionProvider>

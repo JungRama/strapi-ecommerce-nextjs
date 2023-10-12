@@ -1,12 +1,12 @@
 import LayoutMain from "@/components/layouts";
 import { SidebarProfile } from "@/components/layouts/sidebar-profile";
 import { Separator } from "@/components/ui/separator";
-
+  
 const sidebarNavItems = [
-  {
-    title: "Profile",
-    href: "/profile",
-  },
+  // {
+  //   title: "Profile",
+  //   href: "/profile",
+  // },
   {
     title: "Transaction",
     href: "/profile/transaction",
@@ -15,10 +15,10 @@ const sidebarNavItems = [
     title: "Waiting for Payment",
     href: "/profile/waiting-for-payment",
   },
-  {
-    title: "Account",
-    href: "/profile/account",
-  },
+  // {
+  //   title: "Account",
+  //   href: "/profile/account",
+  // },
 ];
 
 export default function ProfileLayout({
@@ -33,7 +33,7 @@ export default function ProfileLayout({
           <div className="space-y-0.5">
             <h2 className="text-2xl font-bold tracking-tight">My Profile</h2>
             <p className="text-muted-foreground">
-              Manage your transaction, payment and setting your account
+              Manage your transaction and payment
             </p>
           </div>
           <Separator className="my-6" />

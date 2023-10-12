@@ -1,38 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Starter ecommerce Integration for NextJS and Strapi
+
+![Cover](/public/github/cover.png)
+
+Welcome to the Starter eCommerce Integration for NextJS and Strapi! This project is designed to help you kickstart your eCommerce website development by integrating the Next.js framework with the Strapi headless CMS. With this starter, you can build a fast, modern, and fully customizable eCommerce site tailored to your specific needs.
+
+## Features
+
+- **Next.js Framework:** A powerful and versatile React framework for building server-rendered and static web applications.
+- **Strapi Headless CMS:** A flexible and open-source content management system, serving as the backend for your eCommerce content.
+- **Fully Customizable:** Tailor the starter to your specific eCommerce requirements, from product listings to checkout processes.
+- **Product Catalog:** Create, update, and manage product listings and categories seamlessly.
+- **Order Management:** Manage customer orders and track order status.
+- **Authentication and User Management:** Easily implement user registration, authentication, and profile management.
+- **Responsive Design:** Built with mobile-first design principles, ensuring a great user experience on all devices.
+- **Stripe Integration:** Easily integrate Stripe for processing payments securely.
+- **EasyPost Integration:** Utilize EasyPost for efficient shipping and tracking of orders.
+
+## Screenshoot
+
+![Screenshoot](/public/github/screenshoot-1.png)
+![Screenshoot](/public/github/screenshoot-2.png)
+![Screenshoot](/public/github/screenshoot-3.png)
 
 ## Getting Started
 
-First, run the development server:
+To get started, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+1. Clone this repository to your local machine.
+2. Install the required dependencies.
+3. Copy .env.example and fill the information.
+4. Start the application.
+5. Open your browser and navigate to `http://localhost:3000` to access the web.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## License
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

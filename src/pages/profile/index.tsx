@@ -3,6 +3,15 @@ import ProfileLayout from "@/components/layouts/profile-layout";
 import { Card, CardHeader } from "@/components/ui/card";
 import { useSession } from "next-auth/react";
 
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: "/profile/transaction",
+      permanent: false,
+    },
+  };
+}
+
 export default function Transaction() {
   const session = useSession();
   const userData = session.data?.user;

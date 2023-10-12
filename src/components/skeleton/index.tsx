@@ -41,7 +41,6 @@ export function SkeletonTransactionList() {
   );
 }
 
-
 export function SkeletonProductDetail() {
   return (
     <div className="container mx-auto my-20">

@@ -26,18 +26,16 @@ export default function useTransactionService() {
   };
 
   const getMyTransaction = async (status?: string) => {
-    const req = await axios.get(
-      `${BASE_URL}orders/me/transaction`, {
-        params: {
-          status
-        },
-        headers: {
-          Authorization: session?.data?.jwt
-            ? "Bearer " + session?.data?.jwt
-            : undefined,
-        },
-      }
-    );
+    const req = await axios.get(`${BASE_URL}orders/me/transaction`, {
+      params: {
+        status,
+      },
+      headers: {
+        Authorization: session?.data?.jwt
+          ? "Bearer " + session?.data?.jwt
+          : undefined,
+      },
+    });
 
     return {
       data: req.data?.results as OrderInterface[],
@@ -46,22 +44,20 @@ export default function useTransactionService() {
   };
 
   const getMyTransactionById = async (id?: string) => {
-    const req = await axios.get(
-      `${BASE_URL}orders/me/transaction/${id}`, {
-        headers: {
-          Authorization: session?.data?.jwt
-            ? "Bearer " + session?.data?.jwt
-            : undefined,
-        },
-      }
-    );
+    const req = await axios.get(`${BASE_URL}orders/me/transaction/${id}`, {
+      headers: {
+        Authorization: session?.data?.jwt
+          ? "Bearer " + session?.data?.jwt
+          : undefined,
+      },
+    });
 
-    return req.data as OrderInterface
+    return req.data as OrderInterface;
   };
 
   return {
     getTransactionWithSecret,
     getMyTransaction,
-    getMyTransactionById
+    getMyTransactionById,
   };
 }

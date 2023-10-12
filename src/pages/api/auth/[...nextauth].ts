@@ -90,8 +90,10 @@ export default NextAuth({
           });
 
           if (response) {
-            token.id = response.user?.id;
-            token.jwt = response.jwt;
+            console.log(response, "as");
+
+            token.id = response.data.user?.id;
+            token.jwt = response.data.jwt;
           }
         }
       }
