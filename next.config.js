@@ -4,9 +4,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "1337",
+        hostname: process.env.NEXT_PUBLIC_IMAGE_URL,
         pathname: "/**",
       },
     ],
