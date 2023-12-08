@@ -90,7 +90,6 @@ export default function FormRegister() {
           <Label htmlFor="email">Email</Label>
           <Input
             {...register("email")}
-            defaultValue={"jungrama.id@gmail.com"}
             type="email"
             id="email"
             placeholder="johndoe@example.com"

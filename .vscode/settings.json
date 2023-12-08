@@ -1,12 +1,12 @@
 {
-  "nuxt.isNuxtApp": false,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+	"nuxt.isNuxtApp": false,
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	}
 }

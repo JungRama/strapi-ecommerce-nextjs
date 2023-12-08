@@ -32,7 +32,7 @@ export const useStoreCheckout = create<CheckoutStateInterface>(
     // Initial state for formShippingInformation contains sample data for shipping information.
     formShippingInformation: {
       name: "Jung Rama",
-      email: "jungrama.id@gmail.com",
+      email: "",
       phone_number: "+6281923123",
       street_address: "1 E 161st St.",
       country: "US",
